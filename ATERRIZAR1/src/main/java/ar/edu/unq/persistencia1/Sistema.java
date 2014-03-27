@@ -14,7 +14,7 @@ public class Sistema {
         repo.guardarUsuario(usuario);
 
     }
-    public void sendMail(Usuario usuario){
+    public void sendMail(Usuario usuario)throws Exception{
         String codigoDeValidacion = this.codigoDeValidacion(usuario);
         Mailer mail = this.getMailer();
         mail.sendEmail(usuario.getEmail(),codigoDeValidacion);
@@ -24,7 +24,8 @@ public class Sistema {
         return new RepositorioDeUsuarios(databaseName);
 
     }
-    public String codigoDeValidacion(Usuario usuario){
+    public String codigoDeValidacion(Usuario usuario) throws Exception{
+        this.getRepositorioDeUsuarios().guardarCodigo(usuario,usuario.getNombreDeUsuario());
         return usuario.getNombreDeUsuario();
 
     }
@@ -32,5 +33,17 @@ public class Sistema {
         Mailer mail = new Mailer();
         return mail;
     }
+
+
+   public void validarCuenta(String codigo){
+
+
+
+   }
+
+   public boolean existeCodigo(String codigo) throws Exception{
+       return this.getRepositorioDeUsuarios().existeCodigo(codigo);
+    }
+
 
 }

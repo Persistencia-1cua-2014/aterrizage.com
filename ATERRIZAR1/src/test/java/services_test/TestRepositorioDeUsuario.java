@@ -61,17 +61,31 @@ public class TestRepositorioDeUsuario {
 
     @Test
     public void testGuardarUsuario() throws Exception {
-        Usuario usuario = new Usuario("Lalocura","DeLalo","Lalo","Laloooo",new Date());
+        Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date());
         this.service.guardarUsuario(usuario);
         Assert.assertTrue(this.service.existeUsuario(usuario));
 
     }
+
     @Test(expected = UsuarioYaExisteException.class)
     public void testLanzaExcepcionConUsuarioExistente() throws Exception {
-        Usuario usuario = new Usuario("Lalocura","DeLalo","Lalo","Laloooo",new Date());
+        Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date());
         this.service.guardarUsuario(usuario);
         this.service.guardarUsuario(usuario);
 
 
     }
+
+    @Test
+    public void testSetearCodigoUsuario() throws Exception {
+        Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date());
+        RepositorioDeUsuarios repo = new RepositorioDeUsuarios("aterrizage_test");
+        this.service.guardarUsuario(usuario);
+        repo.guardarCodigo(usuario, "123");
+        Assert.assertTrue(repo.existeCodigo("123"));
+
+
+    }
+
+
 }

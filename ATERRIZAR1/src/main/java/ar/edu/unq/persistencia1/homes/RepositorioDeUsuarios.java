@@ -3,12 +3,13 @@ package ar.edu.unq.persistencia1.homes;
 import ar.edu.unq.persistencia1.Usuario;
 import ar.edu.unq.persistencia1.UsuarioYaExisteException;
 import ar.edu.unq.persistencia1.services.Service;
+
 import java.sql.Date;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class RepositorioDeUsuarios extends Service{
+public class RepositorioDeUsuarios extends Service {
 
     static String tableName = "Usuario";
 
@@ -20,17 +21,17 @@ public class RepositorioDeUsuarios extends Service{
         if (this.existeUsuario(usuario)) {
             throw new UsuarioYaExisteException();
 
-        }else{
+        } else {
             try {
                 this.forzarUsuario(usuario);
-            }catch (Exception e){
+            } catch (Exception e) {
                 throw new UsuarioYaExisteException();
             }
         }
 
     }
 
-    public void forzarUsuario (Usuario usuario) throws Exception {
+    public void forzarUsuario(Usuario usuario) throws Exception {
 
         Connection connection = this.getConnection();
         PreparedStatement ps = connection.prepareStatement("INSERT INTO Usuario (nombre, apellido, nombreDeUsuario, email, birthday) VALUES (?,?,?,?,?)");
@@ -57,4 +58,27 @@ public class RepositorioDeUsuarios extends Service{
         connection.close();
         return result;
     }
+
+    public boolean existeCodigo(String codigo) throws Exception {
+        Connection connection = this.getConnection();
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Usuario WHERE codigoDeValidacion = ?");
+        ps.setString(1, codigo);
+        ResultSet queryResult = ps.executeQuery();
+        boolean result = queryResult.next();
+        ps.close();
+        connection.close();
+        return result;
+    }
+
+
+    public void guardarCodigo(Usuario usuario, String codigo) throws Exception {
+        Connection connection = this.getConnection();
+        PreparedStatement ps = connection.prepareStatement("UPDATE Usuario SET codigoDeValidacion = " + codigo + " WHERE nombreDeUsuario = '" + usuario.getNombreDeUsuario() + "'");
+
+        ps.execute();
+        ps.close();
+        connection.close();
+
+    }
+
 }

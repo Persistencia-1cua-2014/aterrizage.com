@@ -16,7 +16,7 @@ import static org.mockito.Mockito.verify;
  */
 public class TestSistema{
     @Test
-    public void testeSendEmail(){
+    public void testeSendEmail() throws Exception {
         Mailer mailer = mock(Mailer.class);
         Sistema sistema = mock(Sistema.class);
         stub(sistema.getMailer()).toReturn(mailer);
