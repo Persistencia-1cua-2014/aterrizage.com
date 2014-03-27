@@ -2,7 +2,7 @@ package services_test;
 
 
 import ar.edu.unq.persistencia1.Usuario;
-import ar.edu.unq.persistencia1.services.Service;
+import ar.edu.unq.persistencia1.homes.RepositorioDeUsuarios;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
@@ -12,15 +12,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.Date;
 
-public class TestService {
+public class TestRepositorioDeUsuario {
 
-    Service service;
+    RepositorioDeUsuarios service;
     Connection connection;
     PreparedStatement ps;
 
     @Before
     public void setUp() throws Exception {
-        this.service = new Service("aterrizage_test");
+        this.service = new RepositorioDeUsuarios("aterrizage_test");
         this.service.emptyTable("Usuario");
         this.connection = this.service.getConnection();
 
