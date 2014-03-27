@@ -14,4 +14,7 @@ public class Usuario {
         this.birthday = birthday;
     }
 
+    public String getNombreDeUsuario() {
+        return nombreDeUsuario;
+    }
 }
