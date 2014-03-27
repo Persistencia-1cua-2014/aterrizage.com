@@ -1,22 +1,49 @@
 package ar.edu.unq.persistencia1.homes;
 
 import ar.edu.unq.persistencia1.Usuario;
+import ar.edu.unq.persistencia1.UsuarioYaExisteException;
 import ar.edu.unq.persistencia1.services.Service;
-
+import java.sql.Date;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class RepositorioDeUsuarios extends Service{
 
-    static String databaseName = "Usuario";
+    static String tableName = "Usuario";
 
-    public RepositorioDeUsuarios() {
+    public RepositorioDeUsuarios(String databaseName) {
         super(databaseName);
     }
 
-    public void guardarUsuario(Usuario usuario){
+    public void guardarUsuario(Usuario usuario) throws Exception {
+        if (this.existeUsuario(usuario)) {
+            throw new UsuarioYaExisteException();
 
+        }else{
+            try {
+                this.forzarUsuario(usuario);
+            }catch (Exception e){
+                throw new UsuarioYaExisteException();
+            }
+        }
+
+    }
+
+    public void forzarUsuario (Usuario usuario) throws Exception {
+
+        Connection connection = this.getConnection();
+        PreparedStatement ps = connection.prepareStatement("INSERT INTO Usuario (nombre, apellido, nombreDeUsuario, email, birthday) VALUES (?,?,?,?,?)");
+        ps.setString(1, usuario.getNombre());
+        ps.setString(2, usuario.getApellido());
+        ps.setString(3, usuario.getNombreDeUsuario());
+        ps.setString(4, usuario.getEmail());
+
+        Date sqlBirthday = new Date(usuario.getBirthday().getTime());
+        ps.setDate(5, sqlBirthday);
+        ps.execute();
+        ps.close();
+        connection.close();
     }
 
     public boolean existeUsuario(Usuario usuario) throws Exception {

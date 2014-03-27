@@ -17,4 +17,20 @@ public class Usuario {
     public String getNombreDeUsuario() {
         return nombreDeUsuario;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
 }

@@ -2,6 +2,7 @@ package services_test;
 
 
 import ar.edu.unq.persistencia1.Usuario;
+import ar.edu.unq.persistencia1.UsuarioYaExisteException;
 import ar.edu.unq.persistencia1.homes.RepositorioDeUsuarios;
 import junit.framework.Assert;
 import org.junit.After;
@@ -58,4 +59,19 @@ public class TestRepositorioDeUsuario {
 
     }
 
+    @Test
+    public void testGuardarUsuario() throws Exception {
+        Usuario usuario = new Usuario("Lalocura","DeLalo","Lalo","Laloooo",new Date());
+        this.service.guardarUsuario(usuario);
+        Assert.assertTrue(this.service.existeUsuario(usuario));
+
+    }
+    @Test(expected = UsuarioYaExisteException.class)
+    public void testLanzaExcepcionConUsuarioExistente() throws Exception {
+        Usuario usuario = new Usuario("Lalocura","DeLalo","Lalo","Laloooo",new Date());
+        this.service.guardarUsuario(usuario);
+        this.service.guardarUsuario(usuario);
+
+
+    }
 }
