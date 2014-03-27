@@ -36,16 +36,6 @@ public class TestService {
     }
 
     @Test
-    public void testInsert() throws Exception {
-        this.connection = this.service.getConnection();
-        this.ps = this.connection.prepareStatement("INSERT INTO Usuario (nombreDeUSuario, email) VALUES (?,?)");
-        this.ps.setString(1, "unNombreDeUsuario");
-        this.ps.setString(2, "unEmail");
-        this.ps.execute();
-        Assert.assertEquals("Se espera que haya podido insertar 1 registro", 1, this.ps.getUpdateCount());
-    }
-
-    @Test
     public void testTestExistUserReturnsTrue() throws Exception {
         this.connection = this.service.getConnection();
         this.ps = this.connection.prepareStatement("INSERT INTO Usuario (nombreDeUSuario, email) VALUES (?,?)");
