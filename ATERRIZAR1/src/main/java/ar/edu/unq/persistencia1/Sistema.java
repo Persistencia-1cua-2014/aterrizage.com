@@ -36,7 +36,7 @@ public class Sistema {
 
 
    public void validarCuenta(String codigo){
-           //TODO   
+           //TODO
 
 
    }
