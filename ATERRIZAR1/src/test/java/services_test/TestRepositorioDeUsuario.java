@@ -2,7 +2,7 @@ package services_test;
 
 
 import ar.edu.unq.persistencia1.Usuario;
-import ar.edu.unq.persistencia1.UsuarioYaExisteException;
+import ar.edu.unq.persistencia1.exceptions.UsuarioYaExisteException;
 import ar.edu.unq.persistencia1.homes.RepositorioDeUsuarios;
 import junit.framework.Assert;
 import org.junit.After;
