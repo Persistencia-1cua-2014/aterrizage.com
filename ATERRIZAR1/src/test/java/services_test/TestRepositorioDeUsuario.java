@@ -83,8 +83,25 @@ public class TestRepositorioDeUsuario {
         this.service.guardarUsuario(usuario);
         repo.guardarCodigo(usuario, "123");
         Assert.assertTrue(repo.existeCodigo("123"));
+    }
+    
+    @Test
+    public void testValidarCuentaInexistente() throws Exception {
+    	Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date());
+    	RepositorioDeUsuarios repo = new RepositorioDeUsuarios("aterrizage_test");
+    	this.service.guardarUsuario(usuario);
+    	repo.guardarCodigo(usuario, "123");
+    	Assert.assertEquals(repo.chequearValidacion("123"), 0);   	
 
-
+    }
+    @Test
+    public void testValidarCuentaExistente() throws Exception {
+    	Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date());
+    	RepositorioDeUsuarios repo = new RepositorioDeUsuarios("aterrizage_test");
+    	this.service.guardarUsuario(usuario);
+    	repo.guardarCodigo(usuario, "123");
+    	this.service.validarCuenta("123");	  	
+        Assert.assertEquals(1,repo.chequearValidacion("123"));  	
     }
 
 

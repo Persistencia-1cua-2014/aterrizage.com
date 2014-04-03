@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class RepositorioDeUsuarios extends Service {
 
@@ -81,4 +82,42 @@ public class RepositorioDeUsuarios extends Service {
 
     }
 
-}
+	public void validarCuenta(String codigo)  throws Exception{
+
+        if (this.existeCodigo(codigo)) {
+        	this.forzarValidacion(codigo);
+        	
+          } else {
+            try {
+            } catch (Exception e) {
+                throw new NoExisteCodigoExceptio();
+            }
+        }
+
+    }
+	
+	public void forzarValidacion(String codigo) throws Exception{
+		Connection connection = this.getConnection();
+		PreparedStatement ps = connection.prepareStatement("UPDATE Usuario SET verificado = 1 WHERE codigoDeValidacion = '" + codigo + "'");
+				
+		ps.execute();
+        ps.close();
+        connection.close();
+		
+	}
+	
+	public int chequearValidacion (String codigo) throws Exception{
+		
+	Connection connection = this.getConnection();
+		PreparedStatement ps = connection.prepareStatement("SELECT * FROM Usuario WHERE codigoDeValidacion = ?");
+		ps.setString(1, codigo);
+		ResultSet queryResult = ps.executeQuery();
+		boolean result = queryResult.next(); // avanzar a la primer columna
+		int resultado =  queryResult.getInt("verificado");
+		ps.close();
+		connection.close();
+		return resultado;
+		
+	}
+		
+	}

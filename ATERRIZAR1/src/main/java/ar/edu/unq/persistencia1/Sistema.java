@@ -35,8 +35,9 @@ public class Sistema {
     }
 
 
-   public void validarCuenta(String codigo){
-           //TODO
+   public void validarCuenta(String codigo) throws Exception{
+	   RepositorioDeUsuarios repo = this.getRepositorioDeUsuarios();
+	   repo.validarCuenta(codigo);
 
 
    }
