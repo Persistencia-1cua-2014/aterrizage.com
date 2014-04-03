@@ -50,7 +50,7 @@ public class Sistema {
    
    
   public void cambiarPassword(String userName,String pass,String nuevaPass) throws Exception{
-	  if(this.getRepositorioDeUsuarios().existeUsuarioConPass(userName,pass) && pass != nuevaPass){ 
+	  if(this.getRepositorioDeUsuarios().existeUsuarioConPass(userName,pass) && pass.equals(nuevaPass)){ 
 	  
 		  this.getRepositorioDeUsuarios().cambiarPassword(nuevaPass);
 	  }
