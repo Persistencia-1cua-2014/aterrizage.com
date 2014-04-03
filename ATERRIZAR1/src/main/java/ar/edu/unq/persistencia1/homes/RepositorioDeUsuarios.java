@@ -106,10 +106,12 @@ public class RepositorioDeUsuarios extends Service {
 	
 	
 	
-	public boolean existePassword(String pass) throws Exception {
+	public boolean existePassword(String pass,Usuario usuario) throws Exception {
 	        Connection connection = this.getConnection();
-	        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Usuario WHERE password = ?");
+	        String userName = usuario.getNombreDeUsuario();
+	        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Usuario WHERE password = ? and nombreDeUsuario = ? ");
 	        ps.setString(1, pass);
+	        ps.setString(2, userName);
 	        ResultSet queryResult = ps.executeQuery();
 	        boolean result = queryResult.next();
 	        ps.close();
