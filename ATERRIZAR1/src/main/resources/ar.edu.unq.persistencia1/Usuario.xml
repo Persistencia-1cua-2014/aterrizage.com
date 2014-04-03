@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<hibernate-mapping>
+    <class name="unq.tpi.persistencia.Usuario" table="Usuario" >
+        <id name="nombreDeUsuario" type="java.lang.Integer">
+            <column name="idUsuario" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="20" not-null="true" unique="false" />
+        </property>
+        <property name="apellido" type="string">
+            <column name="apellido" length="20" not-null="true" unique="false" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" not-null="false" unique="false"/>
+        </property>
+        <property name="birthday" type="date">
+            <column name="birthday" not-null="false" unique="false"/>
+        </property>
+        <property name="verificado" type="tinyint">
+            <column name="verificado" not-null="false" unique="false"/>
+        </property>
+        <property name="CodigoDeValidacion" type="string">
+            <column name="CodigoDeValidacion" not-null="false" unique="false"/>
+        </property>
+        <property name="password" type="string">
+            <column name="password" not-null="false" unique="false"/>
+        </property>
+    </class>
+</hibernate-mapping>
