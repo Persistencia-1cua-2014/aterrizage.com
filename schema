@@ -1,0 +1,11 @@
+Usuario
+
+ - idUsuario
+ - nombre (String)
+ - apellido (String)
+ - nombreDeUsuario (String)
+ - email (String)
+ - birthday (Date)
+ - codigoDeValidacion (String)
+ - verificado (String)
+ - password (String)
