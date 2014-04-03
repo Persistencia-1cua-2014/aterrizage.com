@@ -1,9 +1,9 @@
 package ar.edu.unq.persistencia1.homes;
 
 import ar.edu.unq.persistencia1.Usuario;
-import ar.edu.unq.persistencia1.exceptions.NoExisteCodigoExceptio;
 import ar.edu.unq.persistencia1.exceptions.UsuarioNoExiste;
 import ar.edu.unq.persistencia1.exceptions.UsuarioYaExisteException;
+import ar.edu.unq.persistencia1.exceptions.ValidacionException;
 import ar.edu.unq.persistencia1.services.Service;
 
 import java.sql.*;
@@ -62,15 +62,19 @@ public class RepositorioDeUsuarios extends Service {
         }
     }
 
-    public boolean existeCodigo(String codigo) throws Exception {
+    public boolean existeCodigo(String codigo) {
         Connection connection = this.getConnection();
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Usuario WHERE codigoDeValidacion = ?");
-        ps.setString(1, codigo);
-        ResultSet queryResult = ps.executeQuery();
-        boolean result = queryResult.next();
-        ps.close();
-        connection.close();
-        return result;
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM Usuario WHERE codigoDeValidacion = ?");
+            ps.setString(1, codigo);
+            ResultSet queryResult = ps.executeQuery();
+            boolean result = queryResult.next();
+            ps.close();
+            connection.close();
+            return result;
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -102,7 +106,7 @@ public class RepositorioDeUsuarios extends Service {
         return new Usuario(queryResult.getString("nombre"), queryResult.getString("apellido"), queryResult.getString("nombreDeUsuario"), queryResult.getString("email"), queryResult.getDate("birthday"), "");
     }
 
-    public void validarCuenta(String codigo) throws Exception {
+    public void validarCuenta(String codigo) throws ValidacionException {
 
         if (this.existeCodigo(codigo)) {
             this.forzarValidacion(codigo);
@@ -110,19 +114,23 @@ public class RepositorioDeUsuarios extends Service {
         } else {
             try {
             } catch (Exception e) {
-                throw new NoExisteCodigoExceptio();
+                throw new ValidacionException();
             }
         }
 
     }
 
-    public void forzarValidacion(String codigo) throws Exception {
+    public void forzarValidacion(String codigo) {
         Connection connection = this.getConnection();
-        PreparedStatement ps = connection.prepareStatement("UPDATE Usuario SET verificado = 1 WHERE codigoDeValidacion = '" + codigo + "'");
+        try {
+            PreparedStatement ps = connection.prepareStatement("UPDATE Usuario SET verificado = 1 WHERE codigoDeValidacion = '" + codigo + "'");
 
-        ps.execute();
-        ps.close();
-        connection.close();
+            ps.execute();
+            ps.close();
+            connection.close();
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
 
     }
 

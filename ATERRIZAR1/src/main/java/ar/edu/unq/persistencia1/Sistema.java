@@ -3,6 +3,7 @@ package ar.edu.unq.persistencia1;
 
 import ar.edu.unq.persistencia1.exceptions.NuevaPasswordInvalida;
 import ar.edu.unq.persistencia1.exceptions.UsuarioYaExisteException;
+import ar.edu.unq.persistencia1.exceptions.ValidacionException;
 import ar.edu.unq.persistencia1.homes.RepositorioDeUsuarios;
 import ar.edu.unq.persistencia1.mailer.Mailer;
 
@@ -17,7 +18,7 @@ public class Sistema {
 
     }
 
-    public void validarCuenta(String codigo) throws Exception {
+    public void validarCuenta(String codigo) throws ValidacionException {
         RepositorioDeUsuarios repo = this.getRepositorioDeUsuarios();
         repo.validarCuenta(codigo);
     }
