@@ -45,23 +45,23 @@ public class TestRepositorioDeUsuario {
         this.ps.execute();
         this.ps.close();
         this.connection.close();
-        Usuario user = new Usuario("nombre", "apellido", "unNombreDeUsuario", "email", new Date());
-        boolean result = this.service.existeUsuario(user);
+        Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(),"12");
+        boolean result = this.service.existeUsuario(usuario);
         Assert.assertTrue(result);
 
     }
 
     @Test
     public void testTestExistUserReturnsFalse() throws Exception {
-        Usuario user = new Usuario("nombre", "apellido", "unNombreDeUsuario", "email", new Date());
-        boolean result = this.service.existeUsuario(user);
+    	Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(),"12");
+        boolean result = this.service.existeUsuario(usuario);
         Assert.assertFalse(result);
 
     }
 
     @Test
     public void testGuardarUsuario() throws Exception {
-        Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date());
+    	Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(),"12");
         this.service.guardarUsuario(usuario);
         Assert.assertTrue(this.service.existeUsuario(usuario));
 
@@ -69,7 +69,7 @@ public class TestRepositorioDeUsuario {
 
     @Test(expected = UsuarioYaExisteException.class)
     public void testLanzaExcepcionConUsuarioExistente() throws Exception {
-        Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date());
+    	Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(),"12");
         this.service.guardarUsuario(usuario);
         this.service.guardarUsuario(usuario);
 
@@ -78,13 +78,24 @@ public class TestRepositorioDeUsuario {
 
     @Test
     public void testSetearCodigoUsuario() throws Exception {
-        Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date());
+    	Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(),"12");
         RepositorioDeUsuarios repo = new RepositorioDeUsuarios("aterrizage_test");
         this.service.guardarUsuario(usuario);
         repo.guardarCodigo(usuario, "123");
-        Assert.assertTrue(repo.existeCodigo("123"));
+        Assert.assertTrue(repo.existePassword("12"));
 
 
+    }
+    
+    
+    @Test
+    public void testCambiarPassword() throws Exception { 
+       Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(),"12");
+       RepositorioDeUsuarios repo = new RepositorioDeUsuarios("aterrizage_test");
+       this.service.guardarUsuario(usuario);
+       repo.cambiarPassword("123");
+       
+       
     }
 
 

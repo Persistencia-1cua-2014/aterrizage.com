@@ -1,6 +1,7 @@
 package ar.edu.unq.persistencia1;
 
 
+import ar.edu.unq.persistencia1.exceptions.NuevaPasswordInvalida;
 import ar.edu.unq.persistencia1.homes.RepositorioDeUsuarios;
 import ar.edu.unq.persistencia1.mailer.Mailer;
 
@@ -45,5 +46,18 @@ public class Sistema {
        return this.getRepositorioDeUsuarios().existeCodigo(codigo);
     }
 
+   
+   
+   
+  public void cambiarPassword(String userName,String pass,String nuevaPass) throws Exception{
+	  if(this.getRepositorioDeUsuarios().existeUsuarioConPass(userName,pass) && pass != nuevaPass){ 
+	  
+		  this.getRepositorioDeUsuarios().cambiarPassword(nuevaPass);
+	  }
+	  else{
+		  throw new NuevaPasswordInvalida();
+	  }
+   }
+   
 
 }
