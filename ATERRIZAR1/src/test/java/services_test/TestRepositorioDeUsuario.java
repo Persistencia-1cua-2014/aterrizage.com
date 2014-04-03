@@ -39,13 +39,15 @@ public class TestRepositorioDeUsuario {
     @Test
     public void testTestExistUserReturnsTrue() throws Exception {
         this.connection = this.service.getConnection();
-        this.ps = this.connection.prepareStatement("INSERT INTO Usuario (nombreDeUSuario, email) VALUES (?,?)");
-        this.ps.setString(1, "unNombreDeUsuario");
-        this.ps.setString(2, "unEmail");
+        String nombreDeUsuario = "unNombreDeUsuario";
+        String email ="Laloooo";
+        this.ps = this.connection.prepareStatement("INSERT INTO Usuario (nombreDeUsuario, email) VALUES (?,?)");
+        this.ps.setString(1, nombreDeUsuario);
+        this.ps.setString(2, email);
         this.ps.execute();
         this.ps.close();
         this.connection.close();
-        Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(),"12");
+        Usuario usuario = new Usuario("Lalocura", "DeLalo", nombreDeUsuario, email, new Date(),"12");
         boolean result = this.service.existeUsuario(usuario);
         Assert.assertTrue(result);
 
