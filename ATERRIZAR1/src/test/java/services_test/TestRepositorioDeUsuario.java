@@ -82,7 +82,7 @@ public class TestRepositorioDeUsuario {
         RepositorioDeUsuarios repo = new RepositorioDeUsuarios("aterrizage_test");
         this.service.guardarUsuario(usuario);
         repo.guardarCodigo(usuario, "123");
-        Assert.assertTrue(repo.existePassword("12"));
+        Assert.assertTrue(repo.existeCodigo("123"));
 
 
     }
@@ -94,6 +94,7 @@ public class TestRepositorioDeUsuario {
        RepositorioDeUsuarios repo = new RepositorioDeUsuarios("aterrizage_test");
        this.service.guardarUsuario(usuario);
        repo.cambiarPassword("123");
+       Assert.assertTrue(repo.existePassword("123"));
        
        
     }
