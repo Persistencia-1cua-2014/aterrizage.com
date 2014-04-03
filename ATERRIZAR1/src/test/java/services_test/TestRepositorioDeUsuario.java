@@ -87,5 +87,27 @@ public class TestRepositorioDeUsuario {
 
     }
 
+    @Test
+    public void testGetUsuario() throws Exception {
+        Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date());
+        this.service.guardarUsuario(usuario);
+        this.setPassword(usuario, "123456");
+        Usuario user = this.service.getUsuario(usuario.getNombreDeUsuario(), "123456");
+        boolean sameUser = user.getNombreDeUsuario().equals(usuario.getNombreDeUsuario());
+        Assert.assertTrue(sameUser);
+    }
+
+    /**
+     * Remove this method after implement cambiarPassword in Sistema class.
+     * @param usuario
+     */
+    public void setPassword(Usuario usuario, String password) throws Exception {
+        Connection connection = this.service.getConnection();
+        PreparedStatement ps = connection.prepareStatement("UPDATE Usuario SET password = " + password + " WHERE nombreDeUsuario = '" + usuario.getNombreDeUsuario() + "'");
+        ps.execute();
+        ps.close();
+        connection.close();
+    }
+
 
 }

@@ -45,5 +45,10 @@ public class Sistema {
        return this.getRepositorioDeUsuarios().existeCodigo(codigo);
     }
 
+    public Usuario ingresarUsuario(String nombreDeUsuario, String password) throws Exception {
+        Usuario user = this.getRepositorioDeUsuarios().getUsuario(nombreDeUsuario, password);
+        return user;
+    }
+
 
 }
