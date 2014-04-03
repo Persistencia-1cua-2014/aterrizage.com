@@ -2,6 +2,7 @@ package ar.edu.unq.persistencia1;
 
 
 import ar.edu.unq.persistencia1.exceptions.NuevaPasswordInvalida;
+import ar.edu.unq.persistencia1.exceptions.UsuarioYaExisteException;
 import ar.edu.unq.persistencia1.homes.RepositorioDeUsuarios;
 import ar.edu.unq.persistencia1.mailer.Mailer;
 
@@ -9,7 +10,7 @@ public class Sistema {
 
     static String databaseName = "aterrizage";
 
-    public void registrarUsuario(Usuario usuario) throws Exception {
+    public void registrarUsuario(Usuario usuario) throws UsuarioYaExisteException {
 
         RepositorioDeUsuarios repo = this.getRepositorioDeUsuarios();
         repo.guardarUsuario(usuario);
