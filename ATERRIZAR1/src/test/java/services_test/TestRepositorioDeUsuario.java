@@ -2,6 +2,7 @@ package services_test;
 
 
 import ar.edu.unq.persistencia1.Usuario;
+import ar.edu.unq.persistencia1.exceptions.UsuarioNoExiste;
 import ar.edu.unq.persistencia1.exceptions.UsuarioYaExisteException;
 import ar.edu.unq.persistencia1.homes.RepositorioDeUsuarios;
 import junit.framework.Assert;
@@ -102,6 +103,34 @@ public class TestRepositorioDeUsuario {
     	repo.guardarCodigo(usuario, "123");
     	this.service.validarCuenta("123");	  	
         Assert.assertEquals(1,repo.chequearValidacion("123"));  	
+    }
+
+    @Test
+    public void testGetUsuario() throws Exception {
+        Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date());
+        this.service.guardarUsuario(usuario);
+        this.setPassword(usuario, "123456");
+        String password = "123456";
+        Usuario user = this.service.getUsuario(usuario.getNombreDeUsuario(), password);
+        boolean sameUser = user.getNombreDeUsuario().equals(usuario.getNombreDeUsuario());
+        Assert.assertTrue(sameUser);
+    }
+
+    @Test(expected = UsuarioNoExiste.class)
+    public void testGetUsuarioRaiseUsuarioNoExiteException() throws Exception{
+        Usuario user = this.service.getUsuario("aUserName", "aPassword");
+    }
+
+    /**
+     * Remove this method after implement cambiarPassword in Sistema class.
+     * @param usuario
+     */
+    public void setPassword(Usuario usuario, String password) throws Exception {
+        Connection connection = this.service.getConnection();
+        PreparedStatement ps = connection.prepareStatement("UPDATE Usuario SET password = " + password + " WHERE nombreDeUsuario = '" + usuario.getNombreDeUsuario() + "'");
+        ps.execute();
+        ps.close();
+        connection.close();
     }
 
 

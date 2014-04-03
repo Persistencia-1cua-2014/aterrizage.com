@@ -1,14 +1,11 @@
 package ar.edu.unq.persistencia1.homes;
 
 import ar.edu.unq.persistencia1.Usuario;
+import ar.edu.unq.persistencia1.exceptions.UsuarioNoExiste;
 import ar.edu.unq.persistencia1.exceptions.UsuarioYaExisteException;
 import ar.edu.unq.persistencia1.services.Service;
 
-import java.sql.Date;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class RepositorioDeUsuarios extends Service {
 
@@ -80,6 +77,24 @@ public class RepositorioDeUsuarios extends Service {
         ps.close();
         connection.close();
 
+    }
+
+    public Usuario getUsuario(String nombreDeUsuario, String password) throws Exception {
+        Connection connection = this.getConnection();
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Usuario WHERE nombreDeUsuario = '" + nombreDeUsuario +  "' and password = '"+ password +"'");
+        ResultSet queryResult = ps.executeQuery();
+        boolean result = queryResult.next();
+        if (!result){
+            throw new UsuarioNoExiste();
+        }
+        Usuario user = this.buildUser(queryResult);
+        ps.close();
+        connection.close();
+        return user;
+    }
+
+    private Usuario buildUser(ResultSet queryResult) throws SQLException {
+        return new Usuario(queryResult.getString("nombre"), queryResult.getString("apellido"), queryResult.getString("nombreDeUsuario"), queryResult.getString("email"), queryResult.getDate("birthday"));
     }
 
 	public void validarCuenta(String codigo)  throws Exception{
