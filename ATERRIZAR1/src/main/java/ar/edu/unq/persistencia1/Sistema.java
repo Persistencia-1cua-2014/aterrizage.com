@@ -29,7 +29,7 @@ public class Sistema {
         return user;
     }
 
-    public void cambiarPassword(String userName, String pass, String nuevaPass) throws Exception {
+    public void cambiarPassword(String userName, String pass, String nuevaPass) throws NuevaPasswordInvalida {
         if (this.getRepositorioDeUsuarios().existeUsuarioConPass(userName, pass) && pass.equals(nuevaPass)) {
 
             this.getRepositorioDeUsuarios().cambiarPassword(nuevaPass);
