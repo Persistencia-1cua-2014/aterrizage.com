@@ -136,3 +136,44 @@ public class RepositorioDeUsuarios extends Service {
 	}
 		
 	}
+	public void cambiarPassword(String nuevaPass) throws Exception {
+		Connection connection = this.getConnection();
+		PreparedStatement ps = connection.prepareStatement("UPDATE Usuario SET password = " + nuevaPass + "");
+		ps.execute();
+        ps.close();
+        connection.close();
+		
+	}
+
+	public boolean existeUsuarioConPass(String userName, String pass) throws Exception {
+		Connection connection = this.getConnection();
+        //String userName = usuario.getNombreDeUsuario();
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Usuario WHERE nombreDeUsuario = ? and password= ? ");
+        ps.setString(1, userName);
+        ps.setString(2, pass);
+        ResultSet queryResult = ps.executeQuery();
+        boolean result = queryResult.next();
+        ps.close();
+        connection.close();
+        return result;
+		
+	}
+	
+	
+	
+	public boolean existePassword(String pass,Usuario usuario) throws Exception {
+	        Connection connection = this.getConnection();
+	        String userName = usuario.getNombreDeUsuario();
+	        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Usuario WHERE password = ? and nombreDeUsuario = ? ");
+	        ps.setString(1, pass);
+	        ps.setString(2, userName);
+	        ResultSet queryResult = ps.executeQuery();
+	        boolean result = queryResult.next();
+	        ps.close();
+	        connection.close();
+	        return result;
+	    }
+    
+    
+
+}
