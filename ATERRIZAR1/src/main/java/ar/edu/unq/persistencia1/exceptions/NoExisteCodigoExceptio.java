@@ -1,4 +1,4 @@
-package ar.edu.unq.persistencia1.homes;
+package ar.edu.unq.persistencia1.exceptions;
 
 public class NoExisteCodigoExceptio extends Exception {
 

@@ -1,6 +1,7 @@
 package ar.edu.unq.persistencia1.homes;
 
 import ar.edu.unq.persistencia1.Usuario;
+import ar.edu.unq.persistencia1.exceptions.NoExisteCodigoExceptio;
 import ar.edu.unq.persistencia1.exceptions.UsuarioNoExiste;
 import ar.edu.unq.persistencia1.exceptions.UsuarioYaExisteException;
 import ar.edu.unq.persistencia1.services.Service;
