@@ -90,7 +90,7 @@ public class TestRepositorioDeUsuario {
     
     @Test
     public void testValidarCuentaInexistente() throws Exception {
-    	Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date());
+    	Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(), "");
     	RepositorioDeUsuarios repo = new RepositorioDeUsuarios("aterrizage_test");
     	this.service.guardarUsuario(usuario);
     	repo.guardarCodigo(usuario, "123");
@@ -99,7 +99,7 @@ public class TestRepositorioDeUsuario {
     }
     @Test
     public void testValidarCuentaExistente() throws Exception {
-    	Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date());
+    	Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(), "");
     	RepositorioDeUsuarios repo = new RepositorioDeUsuarios("aterrizage_test");
     	this.service.guardarUsuario(usuario);
     	repo.guardarCodigo(usuario, "123");
@@ -109,7 +109,7 @@ public class TestRepositorioDeUsuario {
 
     @Test
     public void testGetUsuario() throws Exception {
-        Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date());
+        Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(), "");
         this.service.guardarUsuario(usuario);
         this.setPassword(usuario, "123456");
         String password = "123456";

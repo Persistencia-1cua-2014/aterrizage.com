@@ -94,7 +94,7 @@ public class RepositorioDeUsuarios extends Service {
     }
 
     private Usuario buildUser(ResultSet queryResult) throws SQLException {
-        return new Usuario(queryResult.getString("nombre"), queryResult.getString("apellido"), queryResult.getString("nombreDeUsuario"), queryResult.getString("email"), queryResult.getDate("birthday"));
+        return new Usuario(queryResult.getString("nombre"), queryResult.getString("apellido"), queryResult.getString("nombreDeUsuario"), queryResult.getString("email"), queryResult.getDate("birthday"), "");
     }
 
 	public void validarCuenta(String codigo)  throws Exception{
@@ -135,7 +135,7 @@ public class RepositorioDeUsuarios extends Service {
 		
 	}
 		
-	}
+
 	public void cambiarPassword(String nuevaPass) throws Exception {
 		Connection connection = this.getConnection();
 		PreparedStatement ps = connection.prepareStatement("UPDATE Usuario SET password = " + nuevaPass + "");
