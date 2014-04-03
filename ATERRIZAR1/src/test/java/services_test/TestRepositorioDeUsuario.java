@@ -2,6 +2,7 @@ package services_test;
 
 
 import ar.edu.unq.persistencia1.Usuario;
+import ar.edu.unq.persistencia1.exceptions.UsuarioNoExiste;
 import ar.edu.unq.persistencia1.exceptions.UsuarioYaExisteException;
 import ar.edu.unq.persistencia1.homes.RepositorioDeUsuarios;
 import junit.framework.Assert;
@@ -92,9 +93,15 @@ public class TestRepositorioDeUsuario {
         Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date());
         this.service.guardarUsuario(usuario);
         this.setPassword(usuario, "123456");
-        Usuario user = this.service.getUsuario(usuario.getNombreDeUsuario(), "123456");
+        String password = "123456";
+        Usuario user = this.service.getUsuario(usuario.getNombreDeUsuario(), password);
         boolean sameUser = user.getNombreDeUsuario().equals(usuario.getNombreDeUsuario());
         Assert.assertTrue(sameUser);
+    }
+
+    @Test(expected = UsuarioNoExiste.class)
+    public void testGetUsuarioRaiseUsuarioNoExiteException() throws Exception{
+        Usuario user = this.service.getUsuario("aUserName", "aPassword");
     }
 
     /**
