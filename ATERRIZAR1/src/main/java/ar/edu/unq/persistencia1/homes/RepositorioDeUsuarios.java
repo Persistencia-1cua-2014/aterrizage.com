@@ -88,18 +88,23 @@ public class RepositorioDeUsuarios extends Service {
 
     }
 
-    public Usuario getUsuario(String nombreDeUsuario, String password) throws Exception {
+    public Usuario getUsuario(String nombreDeUsuario, String password) throws UsuarioNoExiste {
         Connection connection = this.getConnection();
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Usuario WHERE nombreDeUsuario = '" + nombreDeUsuario + "' and password = '" + password + "'");
-        ResultSet queryResult = ps.executeQuery();
-        boolean result = queryResult.next();
-        if (!result) {
-            throw new UsuarioNoExiste();
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM Usuario WHERE nombreDeUsuario = '" + nombreDeUsuario + "' and password = '" + password + "'");
+            ResultSet queryResult = ps.executeQuery();
+            boolean result = queryResult.next();
+            if (!result) {
+                throw new UsuarioNoExiste();
+            }
+            Usuario user = this.buildUser(queryResult);
+            ps.close();
+            connection.close();
+            return user;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        Usuario user = this.buildUser(queryResult);
-        ps.close();
-        connection.close();
-        return user;
+
     }
 
     private Usuario buildUser(ResultSet queryResult) throws SQLException {

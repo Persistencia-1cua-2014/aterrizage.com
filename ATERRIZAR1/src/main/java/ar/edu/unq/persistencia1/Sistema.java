@@ -2,6 +2,7 @@ package ar.edu.unq.persistencia1;
 
 
 import ar.edu.unq.persistencia1.exceptions.NuevaPasswordInvalida;
+import ar.edu.unq.persistencia1.exceptions.UsuarioNoExiste;
 import ar.edu.unq.persistencia1.exceptions.UsuarioYaExisteException;
 import ar.edu.unq.persistencia1.exceptions.ValidacionException;
 import ar.edu.unq.persistencia1.homes.RepositorioDeUsuarios;
@@ -23,12 +24,7 @@ public class Sistema {
         repo.validarCuenta(codigo);
     }
 
-    public RepositorioDeUsuarios getRepositorioDeUsuarios() {
-        return new RepositorioDeUsuarios(databaseName);
-
-    }
-
-    public Usuario ingresarUsuario(String nombreDeUsuario, String password) throws Exception {
+    public Usuario ingresarUsuario(String nombreDeUsuario, String password) throws UsuarioNoExiste {
         Usuario user = this.getRepositorioDeUsuarios().getUsuario(nombreDeUsuario, password);
         return user;
     }
@@ -65,6 +61,11 @@ public class Sistema {
         String codigoDeValidacion = this.codigoDeValidacion(usuario);
         Mailer mail = this.getMailer();
         mail.sendEmail(usuario.getEmail(), codigoDeValidacion);
+    }
+
+    public RepositorioDeUsuarios getRepositorioDeUsuarios() {
+        return new RepositorioDeUsuarios(databaseName);
+
     }
 
 
