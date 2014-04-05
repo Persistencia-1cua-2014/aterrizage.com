@@ -19,31 +19,28 @@ public class RepositorioDeUsuarios extends Service {
     public void guardarUsuario(Usuario usuario) throws UsuarioYaExisteException {
         if (this.existeUsuario(usuario)) {
             throw new UsuarioYaExisteException();
-
-        } else {
-            try {
-                this.forzarUsuario(usuario);
-            } catch (Exception e) {
-                throw new UsuarioYaExisteException();
-            }
         }
-
+        this.forzarUsuario(usuario);
     }
 
-    public void forzarUsuario(Usuario usuario) throws Exception {
+    public void forzarUsuario(Usuario usuario) {
 
         Connection connection = this.getConnection();
-        PreparedStatement ps = connection.prepareStatement("INSERT INTO Usuario (nombre, apellido, nombreDeUsuario, email, birthday) VALUES (?,?,?,?,?)");
-        ps.setString(1, usuario.getNombre());
-        ps.setString(2, usuario.getApellido());
-        ps.setString(3, usuario.getNombreDeUsuario());
-        ps.setString(4, usuario.getEmail());
+        try {
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO Usuario (nombre, apellido, nombreDeUsuario, email, birthday) VALUES (?,?,?,?,?)");
+            ps.setString(1, usuario.getNombre());
+            ps.setString(2, usuario.getApellido());
+            ps.setString(3, usuario.getNombreDeUsuario());
+            ps.setString(4, usuario.getEmail());
 
-        Date sqlBirthday = new Date(usuario.getBirthday().getTime());
-        ps.setDate(5, sqlBirthday);
-        ps.execute();
-        ps.close();
-        connection.close();
+            Date sqlBirthday = new Date(usuario.getBirthday().getTime());
+            ps.setDate(5, sqlBirthday);
+            ps.execute();
+            ps.close();
+            connection.close();
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     public boolean existeUsuario(Usuario usuario) {
@@ -72,7 +69,7 @@ public class RepositorioDeUsuarios extends Service {
             ps.close();
             connection.close();
             return result;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -115,14 +112,9 @@ public class RepositorioDeUsuarios extends Service {
 
         if (this.existeCodigo(codigo)) {
             this.forzarValidacion(codigo);
-
         } else {
-            try {
-            } catch (Exception e) {
-                throw new ValidacionException();
-            }
+            throw new ValidacionException();
         }
-
     }
 
     public void forzarValidacion(String codigo) {
@@ -133,7 +125,7 @@ public class RepositorioDeUsuarios extends Service {
             ps.execute();
             ps.close();
             connection.close();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
@@ -161,7 +153,7 @@ public class RepositorioDeUsuarios extends Service {
             ps.execute();
             ps.close();
             connection.close();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
@@ -179,7 +171,7 @@ public class RepositorioDeUsuarios extends Service {
             ps.close();
             connection.close();
             return result;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
