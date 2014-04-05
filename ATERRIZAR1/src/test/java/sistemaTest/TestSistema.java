@@ -20,7 +20,7 @@ public class TestSistema{
         Mailer mailer = mock(Mailer.class);
         Sistema sistema = mock(Sistema.class);
         stub(sistema.getMailer()).toReturn(mailer);
-        Usuario usuario = new Usuario("lalo", "landa", "laloCura", "unEmail", new Date(),"12");
+        Usuario usuario = new Usuario("lalo", "landa", "laloCura", "unEmail", new Date(),"12","");
         sistema.sendMail(usuario);
         verify(mailer).sendEmail(usuario.getEmail(), sistema.codigoDeValidacion(usuario));
     }

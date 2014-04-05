@@ -108,7 +108,7 @@ public class RepositorioDeUsuarios extends Service {
     }
 
     private Usuario buildUser(ResultSet queryResult) throws SQLException {
-        return new Usuario(queryResult.getString("nombre"), queryResult.getString("apellido"), queryResult.getString("nombreDeUsuario"), queryResult.getString("email"), queryResult.getDate("birthday"), "");
+        return new Usuario(queryResult.getString("nombre"), queryResult.getString("apellido"), queryResult.getString("nombreDeUsuario"), queryResult.getString("email"), queryResult.getDate("birthday"), "", "");
     }
 
     public void validarCuenta(String codigo) throws ValidacionException {
