@@ -22,6 +22,9 @@ public class TestRepositorioDeUsuario {
 
     @Before
     public void setUp() throws Exception {
+        //Avoid log4j warning
+        org.apache.log4j.BasicConfigurator.configure();
+
         this.service = new RepositorioDeUsuarios("aterrizage_test");
         this.service.emptyTable("Usuario");
         this.connection = this.service.getConnection();
