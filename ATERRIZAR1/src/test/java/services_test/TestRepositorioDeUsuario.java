@@ -5,7 +5,7 @@ import ar.edu.unq.persistencia1.Usuario;
 import ar.edu.unq.persistencia1.exceptions.UsuarioNoExiste;
 import ar.edu.unq.persistencia1.exceptions.UsuarioYaExisteException;
 import ar.edu.unq.persistencia1.homes.RepositorioDeUsuarios;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
