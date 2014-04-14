@@ -3,9 +3,27 @@ package ar.edu.unq.persistencia1;
 import java.util.Date;
 
 public class Usuario {
-    String nombre, apellido, nombreDeUsuario, email, password, codigoDeValidacion;
+    String nombre;
+    String apellido;
+    String nombreDeUsuario;
+    String email;
+    String password;
+    String codigoDeValidacion;
     Date birthday;
-    Boolean verificado;
+    boolean verificado;
+    private int idUsuario;
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Usuario(){
+
+    }
 
     public Usuario(String nombre, String apellido, String nombreDeUsuario, String email, Date birthday,String pass, String codigoDeValidacion ) {
         this.nombre = nombre;
@@ -28,6 +46,9 @@ public class Usuario {
 
 	public String getNombreDeUsuario() {
         return nombreDeUsuario;
+    }
+    public void setNombreDeUsuario(String nombreDeUsuario) {
+        this.nombreDeUsuario = nombreDeUsuario;
     }
 
     public String getNombre() {
@@ -61,4 +82,20 @@ public class Usuario {
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
+
+    public String getCodigoDeValidacion() {
+        return codigoDeValidacion;
+    }
+
+    public void setCodigoDeValidacion(String codigoDeValidacion) {
+        this.codigoDeValidacion = codigoDeValidacion;
+    }
+
+    public boolean getVerificado() {
+        return verificado;
+    }
+
+    public void setVerificado(boolean verificado) {
+        this.verificado = verificado;
+    }
 }

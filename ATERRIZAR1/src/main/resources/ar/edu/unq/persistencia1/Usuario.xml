@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="unq.tpi.persistencia.Usuario" table="Usuario" >
-        <id name="nombreDeUsuario" type="java.lang.Integer">
+    <class name="ar.edu.unq.persistencia1.Usuario" table="Usuario" >
+        <id name="idUsuario" type="integer">
             <column name="idUsuario" />
             <generator class="identity" />
         </id>
+        <property name="nombreDeUsuario" type="string">
+            <column name="nombreDeUsuario"  not-null="true" unique="true" />
+        </property>
         <property name="nombre" type="string">
             <column name="nombre" length="20" not-null="true" unique="false" />
         </property>
@@ -19,11 +23,11 @@
         <property name="birthday" type="date">
             <column name="birthday" not-null="false" unique="false"/>
         </property>
-        <property name="verificado" type="tinyint">
+        <property name="verificado" type="boolean">
             <column name="verificado" not-null="false" unique="false"/>
         </property>
-        <property name="CodigoDeValidacion" type="string">
-            <column name="CodigoDeValidacion" not-null="false" unique="false"/>
+        <property name="codigoDeValidacion" type="string">
+            <column name="codigoDeValidacion" not-null="false" unique="false"/>
         </property>
         <property name="password" type="string">
             <column name="password" not-null="false" unique="false"/>
