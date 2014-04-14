@@ -5,8 +5,13 @@ import ar.edu.unq.persistencia1.exceptions.UsuarioNoExiste;
 import ar.edu.unq.persistencia1.exceptions.UsuarioYaExisteException;
 import ar.edu.unq.persistencia1.exceptions.ValidacionException;
 import ar.edu.unq.persistencia1.services.Service;
+import org.hibernate.Transaction;
+import org.hibernate.classic.Session;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class RepositorioDeUsuarios extends Service {
 
@@ -24,23 +29,12 @@ public class RepositorioDeUsuarios extends Service {
     }
 
     public void forzarUsuario(Usuario usuario) {
-
-        Connection connection = this.getConnection();
-        try {
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO Usuario (nombre, apellido, nombreDeUsuario, email, birthday) VALUES (?,?,?,?,?)");
-            ps.setString(1, usuario.getNombre());
-            ps.setString(2, usuario.getApellido());
-            ps.setString(3, usuario.getNombreDeUsuario());
-            ps.setString(4, usuario.getEmail());
-
-            Date sqlBirthday = new Date(usuario.getBirthday().getTime());
-            ps.setDate(5, sqlBirthday);
-            ps.execute();
-            ps.close();
-            connection.close();
-        } catch (SQLException e){
-            throw new RuntimeException(e);
-        }
+        Session session = HibernateIntegration.getSession();
+        Transaction t = session.beginTransaction();
+        session.save(usuario);
+        session.flush();
+        t.commit();
+        session.close();
     }
 
     public boolean existeUsuario(Usuario usuario) {

@@ -6,9 +6,9 @@ import org.hibernate.classic.Session;
 
 public class HibernateIntegration {
 
-    private SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory;
 
-    protected SessionFactory getSessionFactory() {
+    protected static SessionFactory getSessionFactory() {
         if(sessionFactory == null){
             Configuration cfg = new Configuration();
             cfg.configure();
@@ -30,7 +30,7 @@ public class HibernateIntegration {
      * session.close();
      *
      */
-    public Session getSession(){
-        return this.getSessionFactory().openSession();
+    public static Session getSession(){
+        return getSessionFactory().openSession();
     }
 }
