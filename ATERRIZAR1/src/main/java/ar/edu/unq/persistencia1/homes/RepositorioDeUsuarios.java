@@ -7,6 +7,7 @@ import ar.edu.unq.persistencia1.exceptions.ValidacionException;
 import ar.edu.unq.persistencia1.services.Service;
 import ar.edu.unq.persistencia1.services.SessionManager;
 import ar.edu.unq.persistencia1.services.usuarios.CreateUsuario;
+import ar.edu.unq.persistencia1.services.usuarios.GuardarCodigo;
 import org.hibernate.Transaction;
 import org.hibernate.classic.Session;
 
@@ -67,12 +68,7 @@ public class RepositorioDeUsuarios extends Service {
 
 
     public void guardarCodigo(Usuario usuario, String codigo) throws Exception {
-        Connection connection = this.getConnection();
-        PreparedStatement ps = connection.prepareStatement("UPDATE Usuario SET codigoDeValidacion = " + codigo + " WHERE nombreDeUsuario = '" + usuario.getNombreDeUsuario() + "'");
-
-        ps.execute();
-        ps.close();
-        connection.close();
+        SessionManager.runInSession(new GuardarCodigo(usuario, codigo));
 
     }
 
