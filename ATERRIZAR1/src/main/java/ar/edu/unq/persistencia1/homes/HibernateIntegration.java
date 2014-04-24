@@ -8,7 +8,7 @@ public class HibernateIntegration {
 
     private static SessionFactory sessionFactory;
 
-    protected static SessionFactory getSessionFactory() {
+    protected synchronized static SessionFactory getSessionFactory() {
         if(sessionFactory == null){
             Configuration cfg = new Configuration();
             cfg.configure();

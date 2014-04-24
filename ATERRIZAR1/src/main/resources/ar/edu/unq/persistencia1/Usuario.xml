@@ -12,10 +12,10 @@
             <column name="nombreDeUsuario"  not-null="true" unique="true" />
         </property>
         <property name="nombre" type="string">
-            <column name="nombre" length="20" not-null="true" unique="false" />
+            <column name="nombre" length="20" not-null="false" unique="false" />
         </property>
         <property name="apellido" type="string">
-            <column name="apellido" length="20" not-null="true" unique="false" />
+            <column name="apellido" length="20" not-null="false" unique="false" />
         </property>
         <property name="email" type="string">
             <column name="email" not-null="false" unique="false"/>
