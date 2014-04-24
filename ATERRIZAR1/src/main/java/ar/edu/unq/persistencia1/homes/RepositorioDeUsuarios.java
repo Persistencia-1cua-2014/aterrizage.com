@@ -5,6 +5,8 @@ import ar.edu.unq.persistencia1.exceptions.UsuarioNoExiste;
 import ar.edu.unq.persistencia1.exceptions.UsuarioYaExisteException;
 import ar.edu.unq.persistencia1.exceptions.ValidacionException;
 import ar.edu.unq.persistencia1.services.Service;
+import ar.edu.unq.persistencia1.services.SessionManager;
+import ar.edu.unq.persistencia1.services.usuarios.CreateUsuario;
 import org.hibernate.Transaction;
 import org.hibernate.classic.Session;
 
@@ -29,12 +31,7 @@ public class RepositorioDeUsuarios extends Service {
     }
 
     public void forzarUsuario(Usuario usuario) {
-        Session session = HibernateIntegration.getSession();
-        Transaction t = session.beginTransaction();
-        session.save(usuario);
-        session.flush();
-        t.commit();
-        session.close();
+        SessionManager.runInSession(new CreateUsuario(usuario));
     }
 
     public boolean existeUsuario(Usuario usuario) {

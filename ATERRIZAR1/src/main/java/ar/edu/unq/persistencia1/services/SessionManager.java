@@ -8,7 +8,7 @@ import org.hibernate.classic.Session;
 public class SessionManager {
 	
 	private static SessionFactory sessionFactory;
-	private static ThreadLocal<Session> tlSession;
+	private static ThreadLocal<Session> tlSession = new ThreadLocal<Session>();
 	
 	public synchronized static SessionFactory getSessionFactory() {
 		if (sessionFactory == null) {
