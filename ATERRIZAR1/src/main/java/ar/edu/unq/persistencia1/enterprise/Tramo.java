@@ -1,6 +1,7 @@
 package ar.edu.unq.persistencia1.enterprise;
 
 
+import ar.edu.unq.persistencia1.Usuario;
 import ar.edu.unq.persistencia1.enterprise.asientos.Asiento;
 
 import java.util.Date;
@@ -23,6 +24,14 @@ public class Tramo {
     public void addAsiento(Asiento asiento) {
         getAsientos().add(asiento);
     }
+
+    public void reservar(Asiento asiento, Usuario usuario){
+        asiento.reservar(usuario);
+    }
+
+    /* ******************** */
+    /*  Getter and Setters  */
+    /* ******************** */
 
     public Lugar getOrigen() {
         return origen;
