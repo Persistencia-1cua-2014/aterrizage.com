@@ -1,6 +1,8 @@
 package ar.edu.unq.persistencia1.enterprise;
 
 
+import ar.edu.unq.persistencia1.enterprise.asientos.Asiento;
+
 import java.util.Date;
 import java.util.List;
 
