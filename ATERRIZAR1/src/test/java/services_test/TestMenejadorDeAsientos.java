@@ -14,6 +14,9 @@ import org.junit.Test;
 
 import java.util.Date;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 public class TestMenejadorDeAsientos {
     private Usuario usuario;
     private Asiento asiento;
@@ -28,6 +31,18 @@ public class TestMenejadorDeAsientos {
         this.asiento = new Asiento(new Turista());
         this.usuario = new Usuario();
         this.manejadorDeAsientos = new ManejadorDeAsientos();
+    }
+
+    @Test
+    public void testReservarUnAsiento() throws AsientoYaReservado {
+        manejadorDeAsientos.reservarAsiento(usuario, asiento, tramo);
+        assertTrue(asiento.estaReservado());
+    }
+
+    @Test
+    public void testReservarUnAsientoTieneUsuario() throws AsientoYaReservado {
+        manejadorDeAsientos.reservarAsiento(usuario, asiento, tramo);
+        assertNotNull(asiento.getUsuario());
     }
 
     @Test(expected = AsientoYaReservado.class)
