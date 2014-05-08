@@ -24,4 +24,8 @@ public class ManejadorDeAsientos {
         tramo.reservar(asientos, usuario);
     }
 
+    public List<Asiento> asientosDisponibles(Tramo tramo){
+        return tramo.getAsientosDisponibles();
+    }
+
 }

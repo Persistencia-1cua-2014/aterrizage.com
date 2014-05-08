@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class TestMenejadorDeAsientos {
     private Usuario usuario;
@@ -33,7 +32,7 @@ public class TestMenejadorDeAsientos {
         this.usuario = new Usuario();
         this.manejadorDeAsientos = new ManejadorDeAsientos();
         this.asientos = new ArrayList<Asiento>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             tramo.addAsiento(new Asiento(new Turista()));
         }
         this.asiento = tramo.getAsientos().get(0);
@@ -74,5 +73,18 @@ public class TestMenejadorDeAsientos {
         manejadorDeAsientos.reservarAsientos(usuario, aReservar, tramo);
         for (Asiento reservado: aReservar)
             assertTrue(reservado.estaReservado());
+    }
+
+    @Test
+    public void testAsientosDisponiblesNoContieneElReservado(){
+        tramo.reservar(asiento, usuario);
+        assertFalse(manejadorDeAsientos.asientosDisponibles(tramo).contains(asiento));
+    }
+    @Test
+    public void testAsientosDisponiblesContieneLosDiponibles(){
+        List<Asiento> noReservados = new ArrayList<Asiento>(tramo.getAsientos());
+        tramo.reservar(asiento, usuario);
+        noReservados.remove(asiento);
+        assertEquals(noReservados, tramo.getAsientosDisponibles());
     }
 }

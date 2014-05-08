@@ -36,6 +36,15 @@ public class Tramo {
             reservar(asiento, usuario);
     }
 
+    public List<Asiento> getAsientosDisponibles(){
+        List<Asiento> disponibles = new ArrayList<Asiento>();
+        for(Asiento asiento: getAsientos()){
+            if(!asiento.estaReservado())
+                disponibles.add(asiento);
+        }
+        return disponibles;
+    }
+
     /* ******************** */
     /*  Getter and Setters  */
     /* ******************** */
