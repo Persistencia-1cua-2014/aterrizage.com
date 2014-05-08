@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="ar.edu.unq.persistencia1.enterprise.Tramo" table="Tramo">
+        <!--  Agregar id a la tabla tramo ?? -->
+        <id name="idAerolinea" type="integer">
+            <column name="idAerolinea"/>
+            <generator class="identity"/>
+        </id>
+        
+        <property name="origen" type="string"> <!-- va string o Lugar ?! -->
+            <column name="origen"  not-null="true" unique="true" />
+        </property>
+        
+        <property name="destino" type="string"> <!-- va string o Lugar ?! -->
+            <column name="destino"  not-null="true" unique="true" />
+        </property>
+
+		<property name="salida" type="date">
+            <column name="salida" not-null="false" unique="false"/>
+        </property>
+		
+		<property name="llegada" type="date">
+            <column name="llegada" not-null="false" unique="false"/>
+        </property>
+        
+        <bag name="asientos" cascade="all,delete-orphan">
+            <key column="asientos_id"/>
+
+            <one-to-many class="ar.edu.unq.persistencia1.enterprise.asientos.Asiento"/>
+        </bag >
+
+
+
+    </class>
+</hibernate-mapping>

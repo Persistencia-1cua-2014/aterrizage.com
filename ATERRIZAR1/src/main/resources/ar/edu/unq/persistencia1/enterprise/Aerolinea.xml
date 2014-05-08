@@ -12,8 +12,7 @@
 
         <bag name="vueloList" cascade="all,delete-orphan">
             <key column="aerolinea_id"/>
-
-            <one-to-many class="ar.edu.unq.persistencia1.enterprise.Vuelo"/>
+			<one-to-many class="ar.edu.unq.persistencia1.enterprise.Vuelo"/>
         </bag >
 
 
