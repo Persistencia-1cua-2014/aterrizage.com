@@ -4,6 +4,7 @@ package ar.edu.unq.persistencia1.enterprise;
 import ar.edu.unq.persistencia1.Usuario;
 import ar.edu.unq.persistencia1.enterprise.asientos.Asiento;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class Tramo {
     private List<Asiento> asientos;
 
     public Tramo(Lugar origen, Lugar destino, Date salida, Date llegada) {
+        setAsientos(new ArrayList<Asiento>());
         setOrigen(origen);
         setDestino(destino);
         setSalida(salida);
@@ -25,8 +27,13 @@ public class Tramo {
         getAsientos().add(asiento);
     }
 
-    public void reservar(Asiento asiento, Usuario usuario){
+    public void reservar(Asiento asiento, Usuario usuario) {
         asiento.reservar(usuario);
+    }
+
+    public void reservar(List<Asiento> asientos, Usuario usuario) {
+        for (Asiento asiento : asientos)
+            reservar(asiento, usuario);
     }
 
     /* ******************** */
@@ -71,5 +78,17 @@ public class Tramo {
 
     public void setAsientos(List<Asiento> asientos) {
         this.asientos = asientos;
+    }
+
+    public boolean estaReservado(Asiento asiento) {
+        return asiento.estaReservado();
+    }
+
+    public boolean alMenosUnoReservados(List<Asiento> asientos) {
+        boolean estaReservado = false;
+        for(Asiento asiento: asientos){
+            estaReservado |= asiento.estaReservado();
+        }
+        return estaReservado;
     }
 }
