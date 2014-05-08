@@ -2,19 +2,24 @@ package ar.edu.unq.persistencia1.enterprise;
 
 
 import java.util.Date;
+import java.util.List;
 
 public class Tramo {
     private Lugar origen;
     private Lugar destino;
     private Date salida;
     private Date llegada;
-
+    private List<Asiento> asientos;
 
     public Tramo(Lugar origen, Lugar destino, Date salida, Date llegada) {
         setOrigen(origen);
         setDestino(destino);
         setSalida(salida);
         setLlegada(llegada);
+    }
+
+    public void addAsiento(Asiento asiento) {
+        getAsientos().add(asiento);
     }
 
     public Lugar getOrigen() {
@@ -47,5 +52,13 @@ public class Tramo {
 
     public void setLlegada(Date llegada) {
         this.llegada = llegada;
+    }
+
+    public List<Asiento> getAsientos() {
+        return asientos;
+    }
+
+    public void setAsientos(List<Asiento> asientos) {
+        this.asientos = asientos;
     }
 }
