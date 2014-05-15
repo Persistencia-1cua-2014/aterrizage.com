@@ -26,7 +26,7 @@
         </property>
         
         <bag name="asientos" cascade="all,delete-orphan">
-            <key column="asientos_id"/>
+            <key column="tramo_id"/>
 
             <one-to-many class="ar.edu.unq.persistencia1.enterprise.asientos.Asiento"/>
         </bag >
