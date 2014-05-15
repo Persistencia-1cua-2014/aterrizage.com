@@ -21,6 +21,7 @@
         <mapping resource="ar/edu/unq/persistencia1/enterprise/Categoria.xml"/>
         <mapping resource="ar/edu/unq/persistencia1/enterprise/Tramo.xml"/>
         <mapping resource="ar/edu/unq/persistencia1/enterprise/Vuelo.xml"/>
+        <mapping resource="ar/edu/unq/persistencia1/enterprise/Lugar.xml"/>
          
          
          
