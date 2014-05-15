@@ -45,9 +45,10 @@ public class TestRepositorioDeUsuario {
         this.connection = this.service.getConnection();
         String nombreDeUsuario = "unNombreDeUsuario";
         String email ="Laloooo";
-        this.ps = this.connection.prepareStatement("INSERT INTO Usuario (nombreDeUsuario, email) VALUES (?,?)");
+        this.ps = this.connection.prepareStatement("INSERT INTO Usuario (nombreDeUsuario, email, verificado) VALUES (?,?, ?)");
         this.ps.setString(1, nombreDeUsuario);
         this.ps.setString(2, email);
+		this.ps.setBoolean(3, false);
         this.ps.execute();
         this.ps.close();
         this.connection.close();

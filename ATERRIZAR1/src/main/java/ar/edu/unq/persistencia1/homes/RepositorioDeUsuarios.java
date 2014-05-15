@@ -6,10 +6,7 @@ import ar.edu.unq.persistencia1.exceptions.UsuarioYaExisteException;
 import ar.edu.unq.persistencia1.exceptions.ValidacionException;
 import ar.edu.unq.persistencia1.services.Service;
 import ar.edu.unq.persistencia1.services.SessionManager;
-import ar.edu.unq.persistencia1.services.usuarios.CreateUsuario;
-import ar.edu.unq.persistencia1.services.usuarios.ExisteCodigo;
-import ar.edu.unq.persistencia1.services.usuarios.GetUsuario;
-import ar.edu.unq.persistencia1.services.usuarios.GuardarCodigo;
+import ar.edu.unq.persistencia1.services.usuarios.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,19 +33,7 @@ public class RepositorioDeUsuarios extends Service {
     }
 
     public boolean existeUsuario(Usuario usuario) {
-        Connection connection = this.getConnection();
-        String userName = usuario.getNombreDeUsuario();
-        try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM Usuario WHERE nombreDeUsuario = ?");
-            ps.setString(1, userName);
-            ResultSet queryResult = ps.executeQuery();
-            boolean result = queryResult.next();
-            ps.close();
-            connection.close();
-            return result;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return SessionManager.runInSession(new ExisteUsuario(usuario));
     }
 
     public boolean existeCodigo(String codigo) {
