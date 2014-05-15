@@ -7,9 +7,8 @@ import ar.edu.unq.persistencia1.exceptions.ValidacionException;
 import ar.edu.unq.persistencia1.services.Service;
 import ar.edu.unq.persistencia1.services.SessionManager;
 import ar.edu.unq.persistencia1.services.usuarios.CreateUsuario;
+import ar.edu.unq.persistencia1.services.usuarios.GetUsuario;
 import ar.edu.unq.persistencia1.services.usuarios.GuardarCodigo;
-import org.hibernate.Transaction;
-import org.hibernate.classic.Session;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -73,22 +72,10 @@ public class RepositorioDeUsuarios extends Service {
     }
 
     public Usuario getUsuario(String nombreDeUsuario, String password) throws UsuarioNoExiste {
-        Connection connection = this.getConnection();
-        try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM Usuario WHERE nombreDeUsuario = '" + nombreDeUsuario + "' and password = '" + password + "'");
-            ResultSet queryResult = ps.executeQuery();
-            boolean result = queryResult.next();
-            if (!result) {
-                throw new UsuarioNoExiste();
-            }
-            Usuario user = this.buildUser(queryResult);
-            ps.close();
-            connection.close();
-            return user;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
+        Usuario u = SessionManager.runInSession(new GetUsuario(nombreDeUsuario, password));
+		if(u == null)
+			throw new UsuarioNoExiste();
+		return u;
     }
 
     private Usuario buildUser(ResultSet queryResult) throws SQLException {
