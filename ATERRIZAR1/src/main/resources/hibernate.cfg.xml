@@ -16,5 +16,14 @@
 
 
         <mapping resource="ar/edu/unq/persistencia1/Usuario.xml"/>
+        <mapping resource="ar/edu/unq/persistencia1/enterprise/Aerolinea.xml"/>
+        <mapping resource="ar/edu/unq/persistencia1/enterprise/Asiento.xml"/>
+        <mapping resource="ar/edu/unq/persistencia1/enterprise/Categoria.xml"/>
+        <mapping resource="ar/edu/unq/persistencia1/enterprise/Tramo.xml"/>
+        <mapping resource="ar/edu/unq/persistencia1/enterprise/Vuelo.xml"/>
+         
+         
+         
+         
     </session-factory>
 </hibernate-configuration>
