@@ -4,17 +4,16 @@
 
 <hibernate-mapping>
     <class name="ar.edu.unq.persistencia1.enterprise.Tramo" table="Tramo">
-        <!--  Agregar id a la tabla tramo ?? -->
-        <id name="idAerolinea" type="integer">
-            <column name="idAerolinea"/>
+        <id name="id" type="integer">
+            <column name="id"/>
             <generator class="identity"/>
         </id>
         
-        <property name="origen" type="string"> <!-- va string o Lugar ?! -->
+        <property name="origen" type="lugar"> 
             <column name="origen"  not-null="true" unique="true" />
         </property>
         
-        <property name="destino" type="string"> <!-- va string o Lugar ?! -->
+        <property name="destino" type="lugar"> 
             <column name="destino"  not-null="true" unique="true" />
         </property>
 

@@ -137,6 +137,7 @@ public class RepositorioDeUsuarios extends Service {
         try {
             Connection connection = this.getConnection();
             PreparedStatement ps = connection.prepareStatement("UPDATE Usuario SET password = " + nuevaPass + "");
+            // agregar condicion, porque estamos cambiando en todos los usuarios!
             ps.execute();
             ps.close();
             connection.close();

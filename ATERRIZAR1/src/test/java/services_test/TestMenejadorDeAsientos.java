@@ -8,6 +8,7 @@ import ar.edu.unq.persistencia1.enterprise.asientos.Asiento;
 import ar.edu.unq.persistencia1.enterprise.asientos.Turista;
 import ar.edu.unq.persistencia1.exceptions.AsientoYaReservado;
 import ar.edu.unq.persistencia1.homes.ManejadorDeAsientos;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,7 +29,8 @@ public class TestMenejadorDeAsientos {
     public void setUp() {
         Lugar destino = new Lugar("argentina");
         Lugar origen = new Lugar("china");
-        this.tramo = new Tramo(origen, destino, new Date(), new Date());
+        Integer  id = 1;
+        this.tramo = new Tramo(origen, destino, new Date(), new Date(),id);
         this.usuario = new Usuario();
         this.manejadorDeAsientos = new ManejadorDeAsientos();
         this.asientos = new ArrayList<Asiento>();

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ar.edu.unq.persistencia1.enterprise.asientos.Categoria"
+		discriminator-value="Categoria">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+
+		<subclass name="ar.edu.unq.persistencia1.enterprise.asientos.Primera"
+			discriminator-value="Primera">
+		</subclass>
+
+		<subclass name="ar.edu.unq.persistencia1.enterprise.asientos.Buisness"
+			discriminator-value="Buisness">
+		</subclass>
+		
+				<subclass name="ar.edu.unq.persistencia1.enterprise.asientos.Turista"
+			discriminator-value="Turista">
+		</subclass>
+		
+		
+	</class>
+</hibernate-mapping>
