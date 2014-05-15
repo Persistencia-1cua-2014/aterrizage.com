@@ -9,11 +9,11 @@
             <generator class="identity"/>
         </id>
         
-        <property name="origen" type="lugar"> 
+        <property name="origen" type="ar.edu.unq.persistencia1.enterprise.Lugar">
             <column name="origen"  not-null="true" unique="true" />
         </property>
         
-        <property name="destino" type="lugar"> 
+        <property name="destino" type="ar.edu.unq.persistencia1.enterprise.Lugar">
             <column name="destino"  not-null="true" unique="true" />
         </property>
 
