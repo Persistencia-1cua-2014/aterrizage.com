@@ -14,8 +14,8 @@
 			discriminator-value="Primera">
 		</subclass>
 
-		<subclass name="ar.edu.unq.persistencia1.enterprise.asientos.Buisness"
-			discriminator-value="Buisness">
+		<subclass name="ar.edu.unq.persistencia1.enterprise.asientos.Business"
+			discriminator-value="Business">
 		</subclass>
 		
 				<subclass name="ar.edu.unq.persistencia1.enterprise.asientos.Turista"

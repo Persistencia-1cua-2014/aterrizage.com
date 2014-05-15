@@ -3,21 +3,19 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="ar.edu.unq.persistencia1.enterprise.Vuelo" table="Vuelo">
-        <id name="idAsiento" type="integer">
-            <column name="idAsiento"/>
+    <class name="ar.edu.unq.persistencia1.enterprise.asientos.Asiento" table="Asiento">
+        <id name="id" type="integer">
+            <column name="id"/>
             <generator class="identity"/>
         </id>
 
-
-        <property name="usuario" type="usuario"> 
-            <column name="usuario"  not-null="true" unique="true" />
+        <property name="usuario" type="ar.edu.unq.persistencia1.Usuario">
+            <column name="usuario"  />
         </property>
 
-        <property name="categoria" type="categoria">
-            <column name="categoria_id" not-null="true" unique="true" />
+        <property name="categoria" type="ar.edu.unq.persistencia1.enterprise.asientos.Categoria">
+            <column name="categoria" not-null="true" />
         </property>
-
 
     </class>
 </hibernate-mapping>

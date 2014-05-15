@@ -4,8 +4,8 @@
 
 <hibernate-mapping>
     <class name="ar.edu.unq.persistencia1.enterprise.Vuelo" table="Vuelo">
-        <id name="idVuelo" type="integer">
-            <column name="idVuelo"/>
+        <id name="id" type="integer">
+            <column name="id"/>
             <generator class="identity"/>
         </id>
 
