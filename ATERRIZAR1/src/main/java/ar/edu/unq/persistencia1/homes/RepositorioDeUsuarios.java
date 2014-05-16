@@ -78,17 +78,8 @@ public class RepositorioDeUsuarios extends Service {
     }
 
 
-    public void cambiarPassword(String nuevaPass) {
-        try {
-            Connection connection = this.getConnection();
-            PreparedStatement ps = connection.prepareStatement("UPDATE Usuario SET password = " + nuevaPass + "");
-            // agregar condicion, porque estamos cambiando en todos los usuarios!
-            ps.execute();
-            ps.close();
-            connection.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public void cambiarPassword(String userName, String nuevaPass) {
+        SessionManager.runInSession(new ChangePassword(userName, nuevaPass));
 
     }
 

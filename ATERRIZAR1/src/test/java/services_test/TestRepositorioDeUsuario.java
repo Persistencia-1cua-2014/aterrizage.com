@@ -145,7 +145,7 @@ public class TestRepositorioDeUsuario {
        Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(),"12","");
        RepositorioDeUsuarios repo = new RepositorioDeUsuarios("aterrizage_test");
        this.service.guardarUsuario(usuario);
-       repo.cambiarPassword("123");
+       repo.cambiarPassword(usuario.getNombreDeUsuario(), "123");
        Assert.assertTrue(repo.existePassword("123",usuario));
        
        

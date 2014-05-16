@@ -32,7 +32,7 @@ public class Sistema {
     public void cambiarPassword(String userName, String pass, String nuevaPass) throws NuevaPasswordInvalida {
         if (this.getRepositorioDeUsuarios().existeUsuarioConPass(userName, pass) && pass.equals(nuevaPass)) {
 
-            this.getRepositorioDeUsuarios().cambiarPassword(nuevaPass);
+            this.getRepositorioDeUsuarios().cambiarPassword(userName, nuevaPass);
         } else {
             throw new NuevaPasswordInvalida();
         }
