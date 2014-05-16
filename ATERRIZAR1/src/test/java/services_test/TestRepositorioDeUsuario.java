@@ -45,9 +45,10 @@ public class TestRepositorioDeUsuario {
         this.connection = this.service.getConnection();
         String nombreDeUsuario = "unNombreDeUsuario";
         String email ="Laloooo";
-        this.ps = this.connection.prepareStatement("INSERT INTO Usuario (nombreDeUsuario, email) VALUES (?,?)");
+        this.ps = this.connection.prepareStatement("INSERT INTO Usuario (nombreDeUsuario, email, verificado) VALUES (?,?, ?)");
         this.ps.setString(1, nombreDeUsuario);
         this.ps.setString(2, email);
+		this.ps.setBoolean(3, false);
         this.ps.execute();
         this.ps.close();
         this.connection.close();
@@ -88,7 +89,7 @@ public class TestRepositorioDeUsuario {
         RepositorioDeUsuarios repo = new RepositorioDeUsuarios("aterrizage_test");
         this.service.guardarUsuario(usuario);
         repo.guardarCodigo(usuario, "123");
-        Assert.assertTrue(repo.existeCodigo("123"));
+        Assert.assertTrue(repo.existeCodigo("123", usuario.getNombreDeUsuario()));
     }
     
     @Test
@@ -97,7 +98,7 @@ public class TestRepositorioDeUsuario {
     	RepositorioDeUsuarios repo = new RepositorioDeUsuarios("aterrizage_test");
     	this.service.guardarUsuario(usuario);
     	repo.guardarCodigo(usuario, "123");
-    	Assert.assertEquals(repo.chequearValidacion("123"), 0);   	
+    	Assert.assertFalse(repo.chequearValidacion("123", usuario.getNombreDeUsuario()));
 
     }
     @Test
@@ -106,8 +107,8 @@ public class TestRepositorioDeUsuario {
     	RepositorioDeUsuarios repo = new RepositorioDeUsuarios("aterrizage_test");
     	this.service.guardarUsuario(usuario);
     	repo.guardarCodigo(usuario, "123");
-    	this.service.validarCuenta("123");	  	
-        Assert.assertEquals(1,repo.chequearValidacion("123"));  	
+    	this.service.validarCuenta("123", usuario.getNombreDeUsuario());
+		Assert.assertTrue(repo.chequearValidacion("123", usuario.getNombreDeUsuario()));
     }
 
     @Test
@@ -144,7 +145,7 @@ public class TestRepositorioDeUsuario {
        Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(),"12","");
        RepositorioDeUsuarios repo = new RepositorioDeUsuarios("aterrizage_test");
        this.service.guardarUsuario(usuario);
-       repo.cambiarPassword("123");
+       repo.cambiarPassword(usuario.getNombreDeUsuario(), "123");
        Assert.assertTrue(repo.existePassword("123",usuario));
        
        

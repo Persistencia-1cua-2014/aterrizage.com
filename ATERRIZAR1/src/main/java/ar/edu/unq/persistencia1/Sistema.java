@@ -19,9 +19,9 @@ public class Sistema {
 
     }
 
-    public void validarCuenta(String codigo) throws ValidacionException {
+    public void validarCuenta(String codigo, String nombreDeUsuario) throws ValidacionException {
         RepositorioDeUsuarios repo = this.getRepositorioDeUsuarios();
-        repo.validarCuenta(codigo);
+        repo.validarCuenta(codigo, nombreDeUsuario);
     }
 
     public Usuario ingresarUsuario(String nombreDeUsuario, String password) throws UsuarioNoExiste {
@@ -32,7 +32,7 @@ public class Sistema {
     public void cambiarPassword(String userName, String pass, String nuevaPass) throws NuevaPasswordInvalida {
         if (this.getRepositorioDeUsuarios().existeUsuarioConPass(userName, pass) && pass.equals(nuevaPass)) {
 
-            this.getRepositorioDeUsuarios().cambiarPassword(nuevaPass);
+            this.getRepositorioDeUsuarios().cambiarPassword(userName, nuevaPass);
         } else {
             throw new NuevaPasswordInvalida();
         }
@@ -53,8 +53,8 @@ public class Sistema {
         return mail;
     }
 
-    public boolean existeCodigo(String codigo) throws Exception {
-        return this.getRepositorioDeUsuarios().existeCodigo(codigo);
+    public boolean existeCodigo(String codigo, String nombreDeUsuario) throws Exception {
+        return this.getRepositorioDeUsuarios().existeCodigo(codigo, nombreDeUsuario);
     }
 
     public void sendMail(Usuario usuario) throws Exception {
