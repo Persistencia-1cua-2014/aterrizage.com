@@ -22,7 +22,7 @@ public class ExisteUsuarioWithPass implements Operation<Boolean> {
 		Session session = SessionManager.getSession();
 		Criteria c = session.createCriteria(Usuario.class);
 		c.add(Restrictions.eq("nombreDeUsuario", this.userName));
-		c.add(Restrictions.eq("password", this.userName));
+		c.add(Restrictions.eq("password", this.pass));
 		return c.uniqueResult() != null;
 	}
 }

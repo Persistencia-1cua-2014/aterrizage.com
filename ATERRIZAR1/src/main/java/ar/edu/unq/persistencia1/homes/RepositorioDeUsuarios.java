@@ -8,14 +8,10 @@ import ar.edu.unq.persistencia1.services.Service;
 import ar.edu.unq.persistencia1.services.SessionManager;
 import ar.edu.unq.persistencia1.services.usuarios.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class RepositorioDeUsuarios extends Service {
-
-    static String tableName = "Usuario";
 
     public RepositorioDeUsuarios(String databaseName) {
         super(databaseName);
@@ -89,16 +85,7 @@ public class RepositorioDeUsuarios extends Service {
 
 
     public boolean existePassword(String pass, Usuario usuario) throws Exception {
-        Connection connection = this.getConnection();
-        String userName = usuario.getNombreDeUsuario();
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Usuario WHERE password = ? and nombreDeUsuario = ? ");
-        ps.setString(1, pass);
-        ps.setString(2, userName);
-        ResultSet queryResult = ps.executeQuery();
-        boolean result = queryResult.next();
-        ps.close();
-        connection.close();
-        return result;
+		return SessionManager.runInSession(new ExisteUsuarioWithPass(usuario.getNombreDeUsuario(), pass));
     }
 
 
