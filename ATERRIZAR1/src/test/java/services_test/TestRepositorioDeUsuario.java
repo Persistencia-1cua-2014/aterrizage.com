@@ -98,7 +98,7 @@ public class TestRepositorioDeUsuario {
     	RepositorioDeUsuarios repo = new RepositorioDeUsuarios("aterrizage_test");
     	this.service.guardarUsuario(usuario);
     	repo.guardarCodigo(usuario, "123");
-    	Assert.assertEquals(repo.chequearValidacion("123"), 0);   	
+    	Assert.assertFalse(repo.chequearValidacion("123", usuario.getNombreDeUsuario()));
 
     }
     @Test
@@ -108,7 +108,7 @@ public class TestRepositorioDeUsuario {
     	this.service.guardarUsuario(usuario);
     	repo.guardarCodigo(usuario, "123");
     	this.service.validarCuenta("123", usuario.getNombreDeUsuario());
-        Assert.assertEquals(1,repo.chequearValidacion("123"));  	
+		Assert.assertTrue(repo.chequearValidacion("123", usuario.getNombreDeUsuario()));
     }
 
     @Test

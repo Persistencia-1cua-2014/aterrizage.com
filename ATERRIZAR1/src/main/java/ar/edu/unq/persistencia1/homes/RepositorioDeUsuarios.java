@@ -71,17 +71,9 @@ public class RepositorioDeUsuarios extends Service {
 
     }
 
-    public int chequearValidacion(String codigo) throws Exception {
+    public boolean chequearValidacion(String codigo, String nombreDeUsuario) throws Exception {
 
-        Connection connection = this.getConnection();
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Usuario WHERE codigoDeValidacion = ?");
-        ps.setString(1, codigo);
-        ResultSet queryResult = ps.executeQuery();
-        boolean result = queryResult.next(); // avanzar a la primer columna
-        int resultado = queryResult.getInt("verificado");
-        ps.close();
-        connection.close();
-        return resultado;
+        return SessionManager.runInSession(new CheckearValidacion(codigo, nombreDeUsuario));
 
     }
 
