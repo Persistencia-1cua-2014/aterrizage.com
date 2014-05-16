@@ -9,17 +9,21 @@ import org.hibernate.criterion.Restrictions;
 
 public class ExisteCodigo implements Operation<Boolean> {
 
+	private String nombreDeUsuario;
 	private String codigo;
 
-	public ExisteCodigo(String codigo) {
+	public ExisteCodigo(String codigo, String nombreDeUsuario) {
 		this.codigo = codigo;
+		this.nombreDeUsuario = nombreDeUsuario;
 	}
 
 	@Override
 	public Boolean execute() {
 		Session session = SessionManager.getSession();
+
 		Criteria c = session.createCriteria(Usuario.class);
 		c.add(Restrictions.eq("codigoDeValidacion", this.codigo));
+		c.add(Restrictions.eq("nombreDeUsuario", this.nombreDeUsuario));
 		return c.uniqueResult() != null;
 	}
 }

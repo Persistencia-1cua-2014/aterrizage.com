@@ -36,8 +36,8 @@ public class RepositorioDeUsuarios extends Service {
         return SessionManager.runInSession(new ExisteUsuario(usuario));
     }
 
-    public boolean existeCodigo(String codigo) {
-        return SessionManager.runInSession(new ExisteCodigo(codigo));
+    public boolean existeCodigo(String codigo, String nombreDeUsuario) {
+        return SessionManager.runInSession(new ExisteCodigo(codigo,nombreDeUsuario));
     }
 
 
@@ -57,26 +57,17 @@ public class RepositorioDeUsuarios extends Service {
         return new Usuario(queryResult.getString("nombre"), queryResult.getString("apellido"), queryResult.getString("nombreDeUsuario"), queryResult.getString("email"), queryResult.getDate("birthday"), "", "");
     }
 
-    public void validarCuenta(String codigo) throws ValidacionException {
+    public void validarCuenta(String codigo, String nombreDeUsuario) throws ValidacionException {
 
-        if (this.existeCodigo(codigo)) {
-            this.forzarValidacion(codigo);
+        if (this.existeCodigo(codigo, nombreDeUsuario)) {
+            this.forzarValidacion(codigo, nombreDeUsuario);
         } else {
             throw new ValidacionException();
         }
     }
 
-    public void forzarValidacion(String codigo) {
-        Connection connection = this.getConnection();
-        try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE Usuario SET verificado = 1 WHERE codigoDeValidacion = '" + codigo + "'");
-
-            ps.execute();
-            ps.close();
-            connection.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public void forzarValidacion(String codigo, String nombreDeUsuario) {
+		SessionManager.runInSession(new ValidarCodigo(codigo, nombreDeUsuario));
 
     }
 
