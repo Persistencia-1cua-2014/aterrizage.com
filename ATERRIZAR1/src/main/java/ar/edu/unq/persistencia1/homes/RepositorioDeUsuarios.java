@@ -8,9 +8,6 @@ import ar.edu.unq.persistencia1.services.Service;
 import ar.edu.unq.persistencia1.services.SessionManager;
 import ar.edu.unq.persistencia1.services.usuarios.*;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 public class RepositorioDeUsuarios extends Service {
 
     public RepositorioDeUsuarios(String databaseName) {
@@ -47,10 +44,6 @@ public class RepositorioDeUsuarios extends Service {
 		if(u == null)
 			throw new UsuarioNoExiste();
 		return u;
-    }
-
-    private Usuario buildUser(ResultSet queryResult) throws SQLException {
-        return new Usuario(queryResult.getString("nombre"), queryResult.getString("apellido"), queryResult.getString("nombreDeUsuario"), queryResult.getString("email"), queryResult.getDate("birthday"), "", "");
     }
 
     public void validarCuenta(String codigo, String nombreDeUsuario) throws ValidacionException {
