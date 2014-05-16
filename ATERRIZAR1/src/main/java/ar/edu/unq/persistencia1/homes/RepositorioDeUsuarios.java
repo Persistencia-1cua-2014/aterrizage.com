@@ -84,20 +84,7 @@ public class RepositorioDeUsuarios extends Service {
     }
 
     public boolean existeUsuarioConPass(String userName, String pass) {
-        try {
-            Connection connection = this.getConnection();
-            //String userName = usuario.getNombreDeUsuario();
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM Usuario WHERE nombreDeUsuario = ? and password= ? ");
-            ps.setString(1, userName);
-            ps.setString(2, pass);
-            ResultSet queryResult = ps.executeQuery();
-            boolean result = queryResult.next();
-            ps.close();
-            connection.close();
-            return result;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return SessionManager.runInSession(new ExisteUsuarioWithPass(userName, pass));
     }
 
 
