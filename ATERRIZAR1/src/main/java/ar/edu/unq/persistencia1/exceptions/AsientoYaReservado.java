@@ -1,5 +1,5 @@
 package ar.edu.unq.persistencia1.exceptions;
 
 
-public class AsientoYaReservado extends Exception {
+public class AsientoYaReservado extends RuntimeException {
 }
