@@ -7,12 +7,14 @@ import ar.edu.unq.persistencia1.enterprise.Tramo;
 import ar.edu.unq.persistencia1.enterprise.asientos.Asiento;
 import ar.edu.unq.persistencia1.enterprise.asientos.Turista;
 import ar.edu.unq.persistencia1.exceptions.AsientoYaReservado;
-import ar.edu.unq.persistencia1.homes.DAOLugares;
-import ar.edu.unq.persistencia1.homes.DAOTramo;
 import ar.edu.unq.persistencia1.homes.ManejadorDeAsientos;
 
+import ar.edu.unq.persistencia1.services.SessionManager;
+import ar.edu.unq.persistencia1.services.lugares.GuardarLugar;
+import ar.edu.unq.persistencia1.services.tramos.GuardarTramo;
 import org.junit.Before;
 import org.junit.Test;
+import support.EmptyTable;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,17 +31,17 @@ public class TestMenejadorDeAsientos {
 
 	@Before
 	public void setUp() {
+		SessionManager.runInSession(new EmptyTable("Tramo"));
+		SessionManager.runInSession(new EmptyTable("Lugar"));
 		Lugar destino = new Lugar("argentina");
 		Lugar origen = new Lugar("china");
 
-		DAOLugares daoLugares = new DAOLugares();
-		daoLugares.save(origen);
-		daoLugares.save(destino);
+		SessionManager.runInSession(new GuardarLugar(origen));
+		SessionManager.runInSession(new GuardarLugar(destino));
 
 
-		Integer id = 1;
-		this.tramo = new Tramo(origen, destino, new Date(), new Date(), id);
-		(new DAOTramo()).save(this.tramo);
+		this.tramo = new Tramo(origen, destino, new Date(), new Date());
+		SessionManager.runInSession(new GuardarTramo(this.tramo));
 		this.usuario = new Usuario();
 		this.manejadorDeAsientos = new ManejadorDeAsientos();
 		this.asientos = new ArrayList<Asiento>();
