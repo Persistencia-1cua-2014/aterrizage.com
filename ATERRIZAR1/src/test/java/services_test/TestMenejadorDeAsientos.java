@@ -8,14 +8,10 @@ import ar.edu.unq.persistencia1.enterprise.Tramo;
 import ar.edu.unq.persistencia1.enterprise.Vuelo;
 import ar.edu.unq.persistencia1.enterprise.asientos.Asiento;
 import ar.edu.unq.persistencia1.enterprise.asientos.Business;
-import ar.edu.unq.persistencia1.enterprise.asientos.Turista;
 import ar.edu.unq.persistencia1.exceptions.AsientoYaReservado;
 import ar.edu.unq.persistencia1.homes.ManejadorDeAsientos;
-
+import ar.edu.unq.persistencia1.services.Operation;
 import ar.edu.unq.persistencia1.services.SessionManager;
-import ar.edu.unq.persistencia1.services.lugares.GuardarLugar;
-import ar.edu.unq.persistencia1.services.tramos.GuardarTramo;
-import ar.edu.unq.persistencia1.services.usuarios.CreateUsuario;
 import org.junit.Before;
 import org.junit.Test;
 import support.EmptyTable;
@@ -66,8 +62,6 @@ public class TestMenejadorDeAsientos {
 
 		this.manejadorDeAsientos = new ManejadorDeAsientos();
 
-
-
 		this.asientos = new ArrayList<Asiento>();
 		for (int i = 0; i < 5; i++) {
 			tramo.addAsiento(new Asiento(business));
@@ -79,8 +73,24 @@ public class TestMenejadorDeAsientos {
 
 	@Test
 	public void testReservarUnAsiento() throws AsientoYaReservado {
-		manejadorDeAsientos.reservarAsiento(usuario, asiento, tramo);
-		assertTrue(asiento.estaReservado());
+		SessionManager.runInSession(new Operation<Object>() {
+			public Object execute() {
+				Asiento a = (Asiento) SessionManager.getSession().get(Asiento.class, asiento.getId());
+				Usuario u = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(), "12", "");
+				Tramo t = (Tramo) SessionManager.getSession().get(Tramo.class, tramo.getId());
+
+				manejadorDeAsientos.reservarAsiento(u, a, t);
+				return null;
+			}
+		});
+
+		SessionManager.runInSession(new Operation<Object>() {
+			public Object execute() {
+				Asiento a = (Asiento) SessionManager.getSession().get(Asiento.class, asiento.getId());
+				assertTrue(a.estaReservado());
+				return null;
+			}
+		});
 	}
 
 	@Test
