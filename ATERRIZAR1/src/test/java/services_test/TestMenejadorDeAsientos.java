@@ -12,6 +12,7 @@ import ar.edu.unq.persistencia1.exceptions.AsientoYaReservado;
 import ar.edu.unq.persistencia1.homes.ManejadorDeAsientos;
 import ar.edu.unq.persistencia1.services.Operation;
 import ar.edu.unq.persistencia1.services.SessionManager;
+import ar.edu.unq.persistencia1.services.usuarios.CreateUsuario;
 import org.junit.Before;
 import org.junit.Test;
 import support.EmptyTable;
@@ -58,7 +59,8 @@ public class TestMenejadorDeAsientos {
 		Vuelo vuelo = new Vuelo(tramos);
 		aerolinea.getVueloList().add(vuelo);
 
-		this.usuario = new Usuario();
+		this.usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(),"12","");
+		SessionManager.runInSession(new CreateUsuario(this.usuario));
 
 		this.manejadorDeAsientos = new ManejadorDeAsientos();
 
@@ -69,6 +71,7 @@ public class TestMenejadorDeAsientos {
 		tramo.addAsiento(asiento);
 
 		SessionManager.runInSession(new SaveAerolinea(aerolinea));
+
 	}
 
 	@Test

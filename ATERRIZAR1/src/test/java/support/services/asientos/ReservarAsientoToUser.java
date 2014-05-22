@@ -10,12 +10,14 @@ import ar.edu.unq.persistencia1.services.SessionManager;
 
 import java.util.Date;
 
-public class ReservarAsiento implements Operation<Asiento> {
+public class ReservarAsientoToUser implements Operation<Asiento> {
+	private Usuario usuario;
 	private ManejadorDeAsientos manejador;
 	private Asiento asiento;
 	private Tramo tramo;
 
-	public ReservarAsiento(Asiento a, Tramo t, ManejadorDeAsientos manejador){
+	public ReservarAsientoToUser(Usuario u, Asiento a, Tramo t, ManejadorDeAsientos manejador){
+		this.usuario = u;
 		this.asiento = a;
 		this.tramo = t;
 		this.manejador = manejador;
@@ -25,7 +27,7 @@ public class ReservarAsiento implements Operation<Asiento> {
 	@Override
 	public Asiento execute() {
 		Asiento a = (Asiento) SessionManager.getSession().get(Asiento.class, asiento.getId());
-		Usuario u = new Usuario("Juan", "DeJuan", "Juan", "Juaaaan", new Date(), "12", "");
+		Usuario u = (Usuario) SessionManager.getSession().get(Usuario.class, this.usuario.getIdUsuario());
 		Tramo t = (Tramo) SessionManager.getSession().get(Tramo.class, tramo.getId());
 
 		manejador.reservarAsiento(u, a, t);

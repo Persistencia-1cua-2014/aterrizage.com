@@ -4,9 +4,7 @@ import ar.edu.unq.persistencia1.enterprise.asientos.Asiento;
 import ar.edu.unq.persistencia1.exceptions.AsientoYaReservado;
 import ar.edu.unq.persistencia1.services.SessionManager;
 import org.junit.Test;
-import support.services.asientos.EstaReservado;
-import support.services.asientos.GetUsuario;
-import support.services.asientos.ReservarAsiento;
+import support.services.asientos.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,15 +28,23 @@ public class TestMenejadorDeAsientosWithDataBase extends TestMenejadorDeAsientos
 	}
 
 
-	@Test(expected = AsientoYaReservado.class)
+	@Test
 	public void noSePuedeReservarUnAsientoyaReservado() throws AsientoYaReservado {
 		List<Asiento> aReservar = new ArrayList<Asiento>();
 		aReservar.add(asiento);
 		aReservar.add(tramo.getAsientos().get(0));
 		aReservar.add(tramo.getAsientos().get(1));
 		aReservar.add(tramo.getAsientos().get(2));
-		manejadorDeAsientos.reservarAsiento(usuario, asiento, tramo);
-		manejadorDeAsientos.reservarAsientos(usuario, aReservar, tramo);
+
+		SessionManager.runInSession(new ReservarAsientoToUser(usuario, asiento, tramo, manejadorDeAsientos));
+		try {
+			SessionManager.runInSession(new ReservarAsientos(usuario, aReservar, tramo, manejadorDeAsientos));
+			fail();
+		} catch (RuntimeException e){
+			assertEquals(e.getCause().getClass(), AsientoYaReservado.class);
+		}
+
+
 	}
 
 	@Test

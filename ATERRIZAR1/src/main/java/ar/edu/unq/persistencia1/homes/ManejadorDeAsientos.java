@@ -17,7 +17,7 @@ public class ManejadorDeAsientos {
         tramo.reservar(asiento, usuario);
     }
 
-    public void reservarAsientos(Usuario usuario, List<Asiento> asientos, Tramo tramo) throws AsientoYaReservado {
+    public void reservarAsientos(Usuario usuario, List<Asiento> asientos, Tramo tramo) {
         if(tramo.alMenosUnoReservados(asientos)){
             throw new AsientoYaReservado();
         }
