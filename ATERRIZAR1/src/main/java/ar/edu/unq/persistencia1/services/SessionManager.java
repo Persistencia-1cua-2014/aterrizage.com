@@ -26,7 +26,11 @@ public class SessionManager {
 		Transaction transaction = null;
 		T result = null;
 		Session session = null;
-		
+
+		if(tlSession.get() != null){
+			return cmd.execute();
+		}
+
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
