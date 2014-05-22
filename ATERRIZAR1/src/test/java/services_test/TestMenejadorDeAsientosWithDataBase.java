@@ -5,6 +5,7 @@ import ar.edu.unq.persistencia1.exceptions.AsientoYaReservado;
 import ar.edu.unq.persistencia1.services.SessionManager;
 import org.junit.Test;
 import support.services.asientos.EstaReservado;
+import support.services.asientos.GetUsuario;
 import support.services.asientos.ReservarAsiento;
 
 import java.util.ArrayList;
@@ -23,8 +24,9 @@ public class TestMenejadorDeAsientosWithDataBase extends TestMenejadorDeAsientos
 
 	@Test
 	public void testReservarUnAsientoTieneUsuario() throws AsientoYaReservado {
-		manejadorDeAsientos.reservarAsiento(usuario, asiento, tramo);
-		assertNotNull(asiento.getUsuario());
+		SessionManager.runInSession(new ReservarAsiento(asiento, tramo, manejadorDeAsientos));
+		int asientoID = asiento.getId();
+		assertNotNull(SessionManager.runInSession(new GetUsuario(asientoID)));
 	}
 
 
