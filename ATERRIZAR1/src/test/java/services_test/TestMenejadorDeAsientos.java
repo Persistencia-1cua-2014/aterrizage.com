@@ -24,18 +24,18 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class TestMenejadorDeAsientos {
-	private Usuario usuario;
-	private Asiento asiento;
-	private Tramo tramo;
-	private ManejadorDeAsientos manejadorDeAsientos;
-	private List<Asiento> asientos;
+	protected Usuario usuario;
+	protected Asiento asiento;
+	protected Tramo tramo;
+	protected ManejadorDeAsientos manejadorDeAsientos;
+	protected List<Asiento> asientos;
 
 	@Before
 	public void setUp() {
 		SessionManager.runInSession(new EmptyTable("Asiento"));
+		SessionManager.runInSession(new EmptyTable("Usuario"));
 		SessionManager.runInSession(new EmptyTable("Tramo"));
 		SessionManager.runInSession(new EmptyTable("Lugar"));
-
 		SessionManager.runInSession(new EmptyTable("Vuelo"));
 		SessionManager.runInSession(new EmptyTable("Aerolinea"));
 
@@ -73,24 +73,8 @@ public class TestMenejadorDeAsientos {
 
 	@Test
 	public void testReservarUnAsiento() throws AsientoYaReservado {
-		SessionManager.runInSession(new Operation<Object>() {
-			public Object execute() {
-				Asiento a = (Asiento) SessionManager.getSession().get(Asiento.class, asiento.getId());
-				Usuario u = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(), "12", "");
-				Tramo t = (Tramo) SessionManager.getSession().get(Tramo.class, tramo.getId());
-
-				manejadorDeAsientos.reservarAsiento(u, a, t);
-				return null;
-			}
-		});
-
-		SessionManager.runInSession(new Operation<Object>() {
-			public Object execute() {
-				Asiento a = (Asiento) SessionManager.getSession().get(Asiento.class, asiento.getId());
-				assertTrue(a.estaReservado());
-				return null;
-			}
-		});
+		manejadorDeAsientos.reservarAsiento(usuario, asiento, tramo);
+		assertTrue(asiento.estaReservado());
 	}
 
 	@Test

@@ -26,6 +26,7 @@ public class TestRepositorioDeUsuario {
         org.apache.log4j.BasicConfigurator.configure();
 
         this.service = new RepositorioDeUsuarios("aterrizage_test");
+		this.service.emptyTable("Asiento");
         this.service.emptyTable("Usuario");
         this.connection = this.service.getConnection();
 
