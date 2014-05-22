@@ -40,10 +40,9 @@ public class TestMenejadorDeAsientosWithDataBase extends TestMenejadorDeAsientos
 		try {
 			SessionManager.runInSession(new ReservarAsientos(usuario, aReservar, tramo, manejadorDeAsientos));
 			fail();
-		} catch (RuntimeException e){
+		} catch (RuntimeException e) {
 			assertEquals(e.getCause().getClass(), AsientoYaReservado.class);
 		}
-
 
 	}
 
@@ -53,9 +52,9 @@ public class TestMenejadorDeAsientosWithDataBase extends TestMenejadorDeAsientos
 		aReservar.add(tramo.getAsientos().get(0));
 		aReservar.add(tramo.getAsientos().get(1));
 		aReservar.add(tramo.getAsientos().get(2));
-		manejadorDeAsientos.reservarAsientos(usuario, aReservar, tramo);
-		for (Asiento reservado : aReservar)
-			assertTrue(reservado.estaReservado());
+		SessionManager.runInSession(new ReservarAsientos(usuario, aReservar, tramo, manejadorDeAsientos));
+		SessionManager.runInSession(new ChequearAsientosReservados(aReservar));
+
 	}
 
 	@Test
