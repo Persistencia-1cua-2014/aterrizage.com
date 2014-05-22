@@ -53,10 +53,11 @@ public class TestMenejadorDeAsientosWithDataBase extends TestMenejadorDeAsientos
 		aReservar.add(tramo.getAsientos().get(0));
 		aReservar.add(tramo.getAsientos().get(1));
 		aReservar.add(tramo.getAsientos().get(2));
-		manejadorDeAsientos.reservarAsientos(usuario, aReservar, tramo);
-		for (Asiento reservado : aReservar)
-			assertTrue(reservado.estaReservado());
-	}
+		SessionManager.runInSession(new ReservarAsientos(usuario, aReservar, tramo, manejadorDeAsientos));
+		SessionManager.runInSession(new ChequearAsientosReservados(aReservar));
+
+
+		}
 
 	@Test
 	public void testAsientosDisponiblesNoContieneElReservado() {
