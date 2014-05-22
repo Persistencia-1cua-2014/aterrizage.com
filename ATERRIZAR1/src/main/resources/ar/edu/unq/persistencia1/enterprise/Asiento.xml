@@ -9,7 +9,7 @@
             <generator class="identity"/>
         </id>
 
-        <many-to-one name="usuario" class="ar.edu.unq.persistencia1.Usuario" column="usuario_id"/>
+        <many-to-one name="usuario" class="ar.edu.unq.persistencia1.Usuario" column="usuario_id" cascade="all"/>
 
         <many-to-one name="categoria" class="ar.edu.unq.persistencia1.enterprise.asientos.Categoria" column="categoria_id" cascade="all"/>
 
