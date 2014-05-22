@@ -9,13 +9,9 @@
             <generator class="identity"/>
         </id>
 
-        <property name="usuario" type="ar.edu.unq.persistencia1.Usuario">
-            <column name="usuario"  />
-        </property>
+        <many-to-one name="usuario" class="ar.edu.unq.persistencia1.Usuario" column="usuario_id"/>
 
-        <property name="categoria" type="ar.edu.unq.persistencia1.enterprise.asientos.Categoria">
-            <column name="categoria" not-null="true" />
-        </property>
+        <many-to-one name="categoria" class="ar.edu.unq.persistencia1.enterprise.asientos.Categoria" column="categoria_id" cascade="all"/>
 
     </class>
 </hibernate-mapping>

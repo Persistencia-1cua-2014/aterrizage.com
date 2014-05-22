@@ -9,13 +9,9 @@
             <generator class="identity"/>
         </id>
         
-        <property name="origen" type="ar.edu.unq.persistencia1.enterprise.Lugar">
-            <column name="origen"  not-null="true" unique="true" />
-        </property>
-        
-        <property name="destino" type="ar.edu.unq.persistencia1.enterprise.Lugar">
-            <column name="destino"  not-null="true" unique="true" />
-        </property>
+        <many-to-one name="origen" class="ar.edu.unq.persistencia1.enterprise.Lugar" column="origen_id"  not-null="true"  cascade="all"/>
+
+        <many-to-one name="destino" class="ar.edu.unq.persistencia1.enterprise.Lugar" column="destino_id"  not-null="true"  cascade="all"/>
 
 		<property name="salida" type="date">
             <column name="salida" not-null="false" unique="false"/>
