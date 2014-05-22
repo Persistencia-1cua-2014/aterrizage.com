@@ -59,8 +59,8 @@ public class TestMenejadorDeAsientosWithDataBase extends TestMenejadorDeAsientos
 
 	@Test
 	public void testAsientosDisponiblesNoContieneElReservado() {
-		tramo.reservar(asiento, usuario);
-		assertFalse(manejadorDeAsientos.asientosDisponibles(tramo).contains(asiento));
+		SessionManager.runInSession(new ReservarAsientoToUser(usuario, asiento, tramo, manejadorDeAsientos));
+		assertFalse(SessionManager.runInSession(new NoEstaDisponible(tramo, asiento, manejadorDeAsientos)));
 	}
 
 	@Test
