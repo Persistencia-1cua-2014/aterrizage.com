@@ -5,6 +5,10 @@ public class Lugar {
     private String nombre;
 	private int id;
 
+	protected Lugar(){
+
+	}
+
     public Lugar(String nombre) {
         setNombre(nombre);
     }
