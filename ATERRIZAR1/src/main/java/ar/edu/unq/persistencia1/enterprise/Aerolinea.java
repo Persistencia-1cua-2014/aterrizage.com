@@ -7,8 +7,10 @@ public class Aerolinea {
     private List<Vuelo> vueloList;
     private int idAerolinea;
 
-    public Aerolinea() {
-        setVueloList(new ArrayList<Vuelo>());
+	public Aerolinea(){}
+
+    public Aerolinea(ArrayList<Vuelo> vuelos) {
+        setVueloList(vuelos);
     }
 
     public List<Vuelo> getVueloList() {

@@ -1,16 +1,16 @@
 package ar.edu.unq.persistencia1.enterprise;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Vuelo {
     private List<Tramo> tramos;
     private Integer  id;
 
-	public Vuelo(Integer  id) {
-        setTramos(new ArrayList<Tramo>());
-        setId(id);
-    }
+	public Vuelo(List<Tramo> tramos) {
+		setTramos(tramos);
+	}
+
+	public Vuelo() {}
 
     public List<Tramo> getTramos() {
         return tramos;

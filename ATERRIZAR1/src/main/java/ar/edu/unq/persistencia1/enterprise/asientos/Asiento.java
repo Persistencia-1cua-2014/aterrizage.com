@@ -7,6 +7,8 @@ public class Asiento {
     private Categoria categoria;
 	private int id;
 
+	public Asiento(){}
+
     public Asiento(Categoria categoria) {
         this.categoria = categoria;
     }

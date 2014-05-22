@@ -16,13 +16,14 @@ public class Tramo {
     private List<Asiento> asientos;
     private Integer id;
 
-    public Tramo(Lugar origen, Lugar destino, Date salida, Date llegada, Integer id) {
+	public Tramo(){}
+
+    public Tramo(Lugar origen, Lugar destino, Date salida, Date llegada) {
         setAsientos(new ArrayList<Asiento>());
         setOrigen(origen);
         setDestino(destino);
         setSalida(salida);
         setLlegada(llegada);
-        setId(id);
     }
 
     public Integer getId() {
