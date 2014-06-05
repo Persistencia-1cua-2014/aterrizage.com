@@ -5,12 +5,24 @@ import java.util.List;
 public class Vuelo {
     private List<Tramo> tramos;
     private Integer  id;
+    private Integer  price;
 
 	public Vuelo(List<Tramo> tramos) {
 		setTramos(tramos);
 	}
 
 	public Vuelo() {}
+
+	public void addTramo(Tramo tramo){
+		getTramos().add(tramo);
+		calculatePrice();
+	}
+
+	public void calculatePrice(){
+		setPrice(0);
+		for(Tramo t: getTramos())
+			setPrice(getPrice() + t.getPrecioBase());
+	}
 
     public List<Tramo> getTramos() {
         return tramos;
@@ -35,4 +47,11 @@ public class Vuelo {
 		return super.equals(o);
 	}
 
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
 }

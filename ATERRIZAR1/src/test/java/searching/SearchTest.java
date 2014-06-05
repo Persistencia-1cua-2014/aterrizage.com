@@ -27,4 +27,13 @@ public class SearchTest extends AbstractDBTestCase{
 
 		assertEquals(result, vuelos);
 	}
+
+	@Test
+	public void testVueloByPrecio(){
+		Searcher searcher = new Searcher();
+		List<Vuelo> vuelos = searcher.getVuelosByPrecioASC();
+		assertEquals(vuelo2, vuelos.get(1));
+	}
+
+
 }

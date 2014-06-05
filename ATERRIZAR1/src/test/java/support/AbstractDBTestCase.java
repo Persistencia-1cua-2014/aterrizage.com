@@ -51,9 +51,9 @@ public class AbstractDBTestCase extends TestCase{
 
 		Aerolinea aerolinea = new Aerolinea(new ArrayList<Vuelo>());
 		this.vuelo = new Vuelo();
-		this.tramo = createTramo(vuelo, origen, destino, salida, llegada);
+		this.tramo = createTramo(vuelo, origen, destino, salida, llegada, 2000);
 		this.vuelo2 = new Vuelo();
-		this.tramo2 = createTramo(vuelo2, origen, destino, salida, llegada);
+		this.tramo2 = createTramo(vuelo2, origen, destino, salida, llegada, 1000);
 
 		aerolinea.getVueloList().add(vuelo);
 		aerolinea.getVueloList().add(vuelo2);
@@ -76,12 +76,12 @@ public class AbstractDBTestCase extends TestCase{
 		SessionManager.runInSession(new SaveAerolinea(aerolinea));
 	}
 
-	public Tramo createTramo(Vuelo vuelo, Lugar origen, Lugar destino, Date salida, Date llegada){
+	public Tramo createTramo(Vuelo vuelo, Lugar origen, Lugar destino, Date salida, Date llegada, int precio){
 		Tramo tramo = new Tramo(origen, destino, salida, llegada);
 		List<Tramo> tramos = new ArrayList<Tramo>();
-		tramos.add(tramo);
-		tramo.setPrecioBase(2000);
+		tramo.setPrecioBase(precio);
 		vuelo.setTramos(tramos);
+		vuelo.addTramo(tramo);
 		return tramo;
 	}
 }
