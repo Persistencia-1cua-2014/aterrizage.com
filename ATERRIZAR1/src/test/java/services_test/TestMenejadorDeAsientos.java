@@ -54,10 +54,11 @@ public class TestMenejadorDeAsientos {
 		this.tramo = new Tramo(origen, destino, salida, llegada);
 		List<Tramo> tramos = new ArrayList<Tramo>();
 		tramos.add(tramo);
-
+		tramo.setPrecioBase(2000);
 
 		Aerolinea aerolinea = new Aerolinea(new ArrayList<Vuelo>());
 		Vuelo vuelo = new Vuelo(tramos);
+
 		aerolinea.getVueloList().add(vuelo);
 
 		this.usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(),"12","");

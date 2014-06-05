@@ -51,6 +51,7 @@ public class TestHibernateIntegration extends TestCase {
 		Date llegada = new Date();
 
 		Tramo t1 = new Tramo(origen, destino, salida, llegada);
+		t1.setPrecioBase(2000);
 		List<Tramo> tramos = new ArrayList<Tramo>();
 		tramos.add(t1);
 
@@ -74,6 +75,7 @@ public class TestHibernateIntegration extends TestCase {
 		Date llegada = new Date();
 
 		Tramo t1 = new Tramo(origen, destino, salida, llegada);
+		t1.setPrecioBase(2000);
 		t1.addAsiento(asiento);
 		List<Tramo> tramos = new ArrayList<Tramo>();
 		tramos.add(t1);

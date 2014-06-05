@@ -18,7 +18,7 @@
         </property>
 
         <property name="precioBase" type="integer">
-            <column name="precioBase" not-null="false" unique="false"/>
+            <column name="precioBase" not-null="true" unique="false"/>
         </property>
 		
 		<property name="llegada" type="date">
