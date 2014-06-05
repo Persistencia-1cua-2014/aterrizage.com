@@ -5,11 +5,13 @@
 
 <hibernate-mapping>
     <class name="ar.edu.unq.persistencia1.enterprise.asientos.Categoria" discriminator-value="Categoria">
-        <id name="id">
-            <generator class="native"/>
+        <id name="id" type="integer">
+            <column name="id"/>
+            <generator class="identity"/>
         </id>
 
         <discriminator column="discriminador" type="string"/>
+        <property name="factorPrecio" not-null="true"/>
 
         <subclass name="ar.edu.unq.persistencia1.enterprise.asientos.Primera"
                   discriminator-value="Primera">

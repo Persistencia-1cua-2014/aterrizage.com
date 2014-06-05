@@ -64,6 +64,7 @@ public class TestHibernateIntegration extends TestCase {
 	public void testSaveAsiento(){
 
 		Business business = new Business();
+		business.setFactorPrecio(10);
 		Asiento asiento = new Asiento();
 		asiento.setCategoria(business);
 

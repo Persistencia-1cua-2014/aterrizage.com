@@ -42,6 +42,7 @@ public class TestMenejadorDeAsientos {
 
 
 		Business business = new Business();
+		business.setFactorPrecio(10);
 		this.asiento = new Asiento();
 		asiento.setCategoria(business);
 

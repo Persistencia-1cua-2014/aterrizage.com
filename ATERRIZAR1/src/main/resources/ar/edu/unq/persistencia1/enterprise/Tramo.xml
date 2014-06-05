@@ -16,6 +16,10 @@
 		<property name="salida" type="date">
             <column name="salida" not-null="false" unique="false"/>
         </property>
+
+        <property name="precioBase" type="integer">
+            <column name="precioBase" not-null="false" unique="false"/>
+        </property>
 		
 		<property name="llegada" type="date">
             <column name="llegada" not-null="false" unique="false"/>

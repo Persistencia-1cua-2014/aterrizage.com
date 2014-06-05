@@ -15,6 +15,15 @@ public class Tramo {
     private Date llegada;
     private List<Asiento> asientos;
     private Integer id;
+	private Integer precioBase;
+
+	public Integer getPrecioBase() {
+		return precioBase;
+	}
+
+	public void setPrecioBase(Integer precioBase) {
+		this.precioBase = precioBase;
+	}
 
 	public Tramo(){}
 
