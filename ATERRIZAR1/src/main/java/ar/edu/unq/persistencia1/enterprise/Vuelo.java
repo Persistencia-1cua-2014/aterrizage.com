@@ -27,4 +27,12 @@ public class Vuelo {
 		this.id = id;
 	}
 
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Vuelo){
+			return this.getId().equals(((Vuelo)o ).getId());
+		}
+		return super.equals(o);
+	}
+
 }
