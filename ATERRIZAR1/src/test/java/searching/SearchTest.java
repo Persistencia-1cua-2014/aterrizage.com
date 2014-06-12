@@ -35,5 +35,12 @@ public class SearchTest extends AbstractDBTestCase{
 		assertEquals(vuelo2.getId(), vuelos.get(0).getId());
 	}
 
+    @Test
+    public void testVueloByEscala(){
+        Searcher searcher = new Searcher();
+        List<Vuelo> vuelos = searcher.getVuelosByEscalaASC();
+        assertEquals(vuelo2.getId(), vuelos.get(0).getId());
+    }
+
 
 }

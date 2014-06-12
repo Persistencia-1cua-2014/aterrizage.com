@@ -52,6 +52,7 @@ public class AbstractDBTestCase extends TestCase{
 		Aerolinea aerolinea = new Aerolinea(new ArrayList<Vuelo>());
 		this.vuelo = new Vuelo();
 		this.tramo = createTramo(vuelo, origen, destino, salida, llegada, 2000);
+		this.tramo = createTramo(vuelo, origen, destino, salida, llegada, 3000);
 		this.vuelo2 = new Vuelo();
 		this.tramo2 = createTramo(vuelo2, origen, destino, salida, llegada, 1000);
 
