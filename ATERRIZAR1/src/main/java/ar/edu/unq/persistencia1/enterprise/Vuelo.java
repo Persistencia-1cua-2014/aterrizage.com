@@ -1,5 +1,6 @@
 package ar.edu.unq.persistencia1.enterprise;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Vuelo {
@@ -8,10 +9,15 @@ public class Vuelo {
     private Integer  price;
 
 	public Vuelo(List<Tramo> tramos) {
-		setTramos(tramos);
+        this();
+        for(Tramo t: tramos)
+            addTramo(t);
 	}
 
-	public Vuelo() {}
+	public Vuelo() {
+        setPrice(0);
+        setTramos(new ArrayList<Tramo>());
+    }
 
 	public void addTramo(Tramo tramo){
 		getTramos().add(tramo);
@@ -19,7 +25,6 @@ public class Vuelo {
 	}
 
 	public void calculatePrice(){
-		setPrice(0);
 		for(Tramo t: getTramos())
 			setPrice(getPrice() + t.getPrecioBase());
 	}
@@ -28,7 +33,7 @@ public class Vuelo {
         return tramos;
     }
 
-    public void setTramos(List<Tramo> tramos) {
+    protected void setTramos(List<Tramo> tramos) {
         this.tramos = tramos;
     }
     public Integer getId() {

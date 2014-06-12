@@ -32,7 +32,7 @@ public class SearchTest extends AbstractDBTestCase{
 	public void testVueloByPrecio(){
 		Searcher searcher = new Searcher();
 		List<Vuelo> vuelos = searcher.getVuelosByPrecioASC();
-		assertEquals(vuelo2, vuelos.get(1));
+		assertEquals(vuelo2.getId(), vuelos.get(0).getId());
 	}
 
 

@@ -80,7 +80,8 @@ public class AbstractDBTestCase extends TestCase{
 		Tramo tramo = new Tramo(origen, destino, salida, llegada);
 		List<Tramo> tramos = new ArrayList<Tramo>();
 		tramo.setPrecioBase(precio);
-		vuelo.setTramos(tramos);
+        for(Tramo t: tramos)
+            vuelo.addTramo(t);
 		vuelo.addTramo(tramo);
 		return tramo;
 	}

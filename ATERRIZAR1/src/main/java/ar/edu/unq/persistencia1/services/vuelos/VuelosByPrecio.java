@@ -18,7 +18,7 @@ public class VuelosByPrecio implements Operation<List<Vuelo>> {
 	}
 
 	public Criteria orderByLessCost(Criteria criteria) {
-		criteria.addOrder(Order.asc("precio"));
+		criteria.addOrder(Order.asc("price"));
 		return criteria;
 	}
 }
