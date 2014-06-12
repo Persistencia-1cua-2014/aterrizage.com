@@ -7,6 +7,7 @@ import ar.edu.unq.persistencia1.enterprise.asientos.Turista;
 import ar.edu.unq.persistencia1.services.SessionManager;
 import ar.edu.unq.persistencia1.services.vuelos.*;
 
+import java.util.Date;
 import java.util.List;
 
 public class Searcher {
@@ -33,5 +34,9 @@ public class Searcher {
 
     public List<Vuelo> getVuelosByCategoria(Categoria categoria) {
         return SessionManager.runInSession(new VuelosByCategoria(categoria));
+    }
+
+    public List<Vuelo> getVuelosByFechaSalida(Date fechaSalida) {
+        return SessionManager.runInSession(new VuelosByFechaSalida(fechaSalida));
     }
 }
