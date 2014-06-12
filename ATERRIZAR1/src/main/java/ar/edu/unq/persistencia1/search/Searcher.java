@@ -39,4 +39,8 @@ public class Searcher {
     public List<Vuelo> getVuelosByFechaSalida(Date fechaSalida) {
         return SessionManager.runInSession(new VuelosByFechaSalida(fechaSalida));
     }
+
+    public List<Vuelo> getVuelosByFechaLlegada(Date llegada) {
+        return SessionManager.runInSession(new VuelosByFechaLlegada(llegada));
+    }
 }
