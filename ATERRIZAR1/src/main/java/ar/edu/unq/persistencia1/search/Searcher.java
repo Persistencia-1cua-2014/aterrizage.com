@@ -2,6 +2,7 @@ package ar.edu.unq.persistencia1.search;
 
 import ar.edu.unq.persistencia1.enterprise.Vuelo;
 import ar.edu.unq.persistencia1.services.SessionManager;
+import ar.edu.unq.persistencia1.services.vuelos.VuelosByDuracion;
 import ar.edu.unq.persistencia1.services.vuelos.VuelosByEscalas;
 import ar.edu.unq.persistencia1.services.vuelos.VuelosByPrecio;
 import ar.edu.unq.persistencia1.services.vuelos.VuelosDisponibles;
@@ -20,5 +21,9 @@ public class Searcher {
 
     public List<Vuelo> getVuelosByEscalaASC() {
         return SessionManager.runInSession(new VuelosByEscalas());
+    }
+
+    public List<Vuelo> getVuelosByDuracionASC(){
+        return SessionManager.runInSession(new VuelosByDuracion());
     }
 }

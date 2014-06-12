@@ -9,16 +9,19 @@
             <generator class="identity"/>
         </id>
 
-       <property name="price" type="integer">
+        <property name="price" type="integer">
             <column name="price" not-null="true" unique="false"/>
+        </property>
+
+        <property name="duracion" type="long">
+            <column name="duracion" not-null="true" unique="false"/>
         </property>
 
 
         <bag name="tramos" cascade="all,delete-orphan">
             <key column="vuelo_id"/>
-			<one-to-many class="ar.edu.unq.persistencia1.enterprise.Tramo"/>
-        </bag >
-
+            <one-to-many class="ar.edu.unq.persistencia1.enterprise.Tramo"/>
+        </bag>
 
 
     </class>

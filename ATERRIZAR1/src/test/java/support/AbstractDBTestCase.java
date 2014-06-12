@@ -15,6 +15,7 @@ import junit.framework.TestCase;
 import support.services.aerolinea.SaveAerolinea;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -44,15 +45,23 @@ public class AbstractDBTestCase extends TestCase{
 		this.asiento = new Asiento();
 		asiento.setCategoria(business);
 
+        Date today = new Date();
 		Lugar origen = new Lugar("Argentina");
 		Lugar destino = new Lugar("Brasil");
-		Date salida = new Date();
-		Date llegada = new Date();
+        Lugar origen2 = destino;
+        Lugar destino2 = new Lugar("Portugal");
+
+
+		Date salida = today;
+		Date llegada = plusDays(today, 1);
+
+        Date salida2 = llegada;
+        Date llegada2 = plusDays(llegada, 1);
 
 		Aerolinea aerolinea = new Aerolinea(new ArrayList<Vuelo>());
 		this.vuelo = new Vuelo();
 		this.tramo = createTramo(vuelo, origen, destino, salida, llegada, 2000);
-		this.tramo = createTramo(vuelo, origen, destino, salida, llegada, 3000);
+		this.tramo = createTramo(vuelo, destino, destino2, llegada, llegada2, 3000);
 		this.vuelo2 = new Vuelo();
 		this.tramo2 = createTramo(vuelo2, origen, destino, salida, llegada, 1000);
 
@@ -86,4 +95,11 @@ public class AbstractDBTestCase extends TestCase{
 		vuelo.addTramo(tramo);
 		return tramo;
 	}
+
+    public Date plusDays(Date d, int days){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(d);
+        cal.add(Calendar.DATE, days);
+        return cal.getTime();
+    }
 }
