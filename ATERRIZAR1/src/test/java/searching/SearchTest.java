@@ -57,5 +57,11 @@ public class SearchTest extends AbstractDBTestCase{
         assertEquals(new ArrayList<Vuelo>(){{add(vuelo); add(vuelo2);}}, vuelos);
     }
 
+    @Test
+    public void testVueloByCategoria(){
+        Searcher searcher = new Searcher();
+        List<Vuelo> vuelos = searcher.getVuelosByCategoria(turista);
+        assertEquals(new ArrayList<Vuelo>(){{add(vuelo2);}}, vuelos);
+    }
 
 }

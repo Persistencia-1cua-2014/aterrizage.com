@@ -8,6 +8,7 @@ import ar.edu.unq.persistencia1.enterprise.Tramo;
 import ar.edu.unq.persistencia1.enterprise.Vuelo;
 import ar.edu.unq.persistencia1.enterprise.asientos.Asiento;
 import ar.edu.unq.persistencia1.enterprise.asientos.Business;
+import ar.edu.unq.persistencia1.enterprise.asientos.Turista;
 import ar.edu.unq.persistencia1.homes.ManejadorDeAsientos;
 import ar.edu.unq.persistencia1.services.SessionManager;
 import ar.edu.unq.persistencia1.services.usuarios.CreateUsuario;
@@ -30,6 +31,7 @@ public class AbstractDBTestCase extends TestCase{
 	protected List<Asiento> asientos;
 	private Tramo tramo2;
     private Vuelo vuelo3;
+    protected  Turista turista;
 
 
     public void cleanDB(){
@@ -42,6 +44,8 @@ public class AbstractDBTestCase extends TestCase{
 	}
 
 	public void initModels(){
+        this.turista = new Turista();
+        turista.setFactorPrecio(1);
 		Business business = new Business();
 		business.setFactorPrecio(10);
 		this.asiento = new Asiento();
@@ -87,7 +91,7 @@ public class AbstractDBTestCase extends TestCase{
 		}
 		tramo2.addAsiento(asiento);
 		for (int i = 0; i < 5; i++) {
-			tramo2.addAsiento(new Asiento(business));
+			tramo2.addAsiento(new Asiento(turista));
 		}
 		tramo2.addAsiento(asiento);
 

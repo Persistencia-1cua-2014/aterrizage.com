@@ -2,6 +2,8 @@ package ar.edu.unq.persistencia1.search;
 
 import ar.edu.unq.persistencia1.enterprise.Aerolinea;
 import ar.edu.unq.persistencia1.enterprise.Vuelo;
+import ar.edu.unq.persistencia1.enterprise.asientos.Categoria;
+import ar.edu.unq.persistencia1.enterprise.asientos.Turista;
 import ar.edu.unq.persistencia1.services.SessionManager;
 import ar.edu.unq.persistencia1.services.vuelos.*;
 
@@ -27,5 +29,9 @@ public class Searcher {
 
     public List<Vuelo> getVuelosByAeroline(Aerolinea aerolinea) {
         return SessionManager.runInSession(new VuelosByAerolinea(aerolinea));
+    }
+
+    public List<Vuelo> getVuelosByCategoria(Categoria categoria) {
+        return SessionManager.runInSession(new VuelosByCategoria(categoria));
     }
 }
