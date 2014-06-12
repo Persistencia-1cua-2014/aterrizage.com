@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 public class AbstractDBTestCase extends TestCase{
+    protected Aerolinea aerolinea;
 	protected Vuelo vuelo;
 	protected Vuelo vuelo2;
 	protected Usuario usuario;
@@ -28,9 +29,10 @@ public class AbstractDBTestCase extends TestCase{
 	protected ManejadorDeAsientos manejadorDeAsientos;
 	protected List<Asiento> asientos;
 	private Tramo tramo2;
+    private Vuelo vuelo3;
 
 
-	public void cleanDB(){
+    public void cleanDB(){
 		SessionManager.runInSession(new EmptyTable("Asiento"));
 		SessionManager.runInSession(new EmptyTable("Usuario"));
 		SessionManager.runInSession(new EmptyTable("Tramo"));
@@ -58,12 +60,18 @@ public class AbstractDBTestCase extends TestCase{
         Date salida2 = llegada;
         Date llegada2 = plusDays(llegada, 1);
 
-		Aerolinea aerolinea = new Aerolinea(new ArrayList<Vuelo>());
+		this.aerolinea = new Aerolinea(new ArrayList<Vuelo>());
+        Aerolinea aerolinea2 = new Aerolinea(new ArrayList<Vuelo>());
 		this.vuelo = new Vuelo();
 		this.tramo = createTramo(vuelo, origen, destino, salida, llegada, 2000);
 		this.tramo = createTramo(vuelo, destino, destino2, llegada, llegada2, 3000);
+
 		this.vuelo2 = new Vuelo();
 		this.tramo2 = createTramo(vuelo2, origen, destino, salida, llegada, 1000);
+
+        this.vuelo3 = new Vuelo();
+        createTramo(vuelo3, origen, destino, salida, llegada, 1000);
+        aerolinea2.getVueloList().add(vuelo3);
 
 		aerolinea.getVueloList().add(vuelo);
 		aerolinea.getVueloList().add(vuelo2);

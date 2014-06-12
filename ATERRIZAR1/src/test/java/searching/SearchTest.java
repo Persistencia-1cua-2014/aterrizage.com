@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import support.AbstractDBTestCase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchTest extends AbstractDBTestCase{
@@ -47,6 +48,13 @@ public class SearchTest extends AbstractDBTestCase{
         Searcher searcher = new Searcher();
         List<Vuelo> vuelos = searcher.getVuelosByDuracionASC();
         assertEquals(vuelo2.getId(), vuelos.get(0).getId());
+    }
+
+    @Test
+    public void testVueloByAerolinea(){
+        Searcher searcher = new Searcher();
+        List<Vuelo> vuelos = searcher.getVuelosByAeroline(this.aerolinea);
+        assertEquals(new ArrayList<Vuelo>(){{add(vuelo); add(vuelo2);}}, vuelos);
     }
 
 
