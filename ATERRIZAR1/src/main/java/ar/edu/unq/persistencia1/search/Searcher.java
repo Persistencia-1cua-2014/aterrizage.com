@@ -1,6 +1,7 @@
 package ar.edu.unq.persistencia1.search;
 
 import ar.edu.unq.persistencia1.enterprise.Aerolinea;
+import ar.edu.unq.persistencia1.enterprise.Lugar;
 import ar.edu.unq.persistencia1.enterprise.Vuelo;
 import ar.edu.unq.persistencia1.enterprise.asientos.Categoria;
 import ar.edu.unq.persistencia1.enterprise.asientos.Turista;
@@ -42,5 +43,9 @@ public class Searcher {
 
     public List<Vuelo> getVuelosByFechaLlegada(Date llegada) {
         return SessionManager.runInSession(new VuelosByFechaLlegada(llegada));
+    }
+    
+    public List<Vuelo> getVuelosByDestinoYOrigen(Lugar origen,Lugar destino) {
+        return SessionManager.runInSession(new VuelosByOrigenYDestino(origen,destino));
     }
 }
