@@ -34,6 +34,10 @@ public class AbstractDBTestCase extends TestCase{
     protected  Turista turista;
     protected Vuelo vuelo4;
     protected Tramo tramo4;
+    protected Lugar origen; 
+    protected Lugar destino; 
+    protected Lugar origen2; 
+    protected Lugar destino2; 
 
 
     public void cleanDB(){
@@ -45,7 +49,9 @@ public class AbstractDBTestCase extends TestCase{
 		SessionManager.runInSession(new EmptyTable("Aerolinea"));
 	}
 
-	public void initModels(){
+	
+    
+    public void initModels(){
         this.turista = new Turista();
         turista.setFactorPrecio(1);
 		Business business = new Business();
@@ -54,10 +60,10 @@ public class AbstractDBTestCase extends TestCase{
 		asiento.setCategoria(business);
 
         Date today = new Date();
-		Lugar origen = new Lugar("Argentina");
-		Lugar destino = new Lugar("Brasil");
-        Lugar origen2 = destino;
-        Lugar destino2 = new Lugar("Portugal");
+		origen = new Lugar("Argentina");
+		destino = new Lugar("Brasil");
+        origen2 = destino;
+        destino2 = new Lugar("Portugal");
 
 
 		Date salida = today;

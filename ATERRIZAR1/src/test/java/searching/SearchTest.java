@@ -78,6 +78,14 @@ public class SearchTest extends AbstractDBTestCase{
         List<Vuelo> vuelos = searcher.getVuelosByFechaLlegada(tramo4.getLlegada());
         assertEquals(new ArrayList<Vuelo>(){{add(vuelo4);}}, vuelos);
     }
-
+    
+    
+    //No pude probar este test porque no tengo el sql en la maquina !
+    @Test
+    public void testVueloByOrigenYDestino(){
+        Searcher searcher = new Searcher();
+        List<Vuelo> vuelos = searcher.getVuelosByOrigenYDestino(this.origen,this.destino);
+        assertEquals(new ArrayList<Vuelo>(){{add(vuelo);}}, vuelos);
+    }
 
 }

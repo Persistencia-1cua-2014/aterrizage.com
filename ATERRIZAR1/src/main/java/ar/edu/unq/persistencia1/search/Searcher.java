@@ -45,7 +45,7 @@ public class Searcher {
         return SessionManager.runInSession(new VuelosByFechaLlegada(llegada));
     }
     
-    public List<Vuelo> getVuelosByDestinoYOrigen(Lugar origen,Lugar destino) {
+    public List<Vuelo> getVuelosByOrigenYDestino(Lugar origen,Lugar destino) {
         return SessionManager.runInSession(new VuelosByOrigenYDestino(origen,destino));
     }
 }
