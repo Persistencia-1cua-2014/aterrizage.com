@@ -9,7 +9,7 @@ public class NeoManager {
 
 
     public static <T> T runInSession(NeoOperation<T> operation) {
-        if (tlGraphDatabase.get() != null) {
+        if (tlGraphDatabase.get() == null) {
             tlGraphDatabase.set(new GraphDatabaseFactory().newEmbeddedDatabase("neo_4_j_database"));
         }
         //registerShutdownHook( graphDb );
