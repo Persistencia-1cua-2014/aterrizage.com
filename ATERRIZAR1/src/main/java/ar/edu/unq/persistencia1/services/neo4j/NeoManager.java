@@ -9,7 +9,7 @@ public class NeoManager {
 
     public static <T> T runInSessionInDatabase(NeoOperation<T> operation, String database) {
         if (tlGraphDatabase.get() == null) {
-            tlGraphDatabase.set(new GraphDatabaseFactory().newEmbeddedDatabase(database));
+            tlGraphDatabase.set(createDatabase(database));
         }
         //registerShutdownHook( graphDb );
         T result;
@@ -31,6 +31,10 @@ public class NeoManager {
 
     public static GraphDatabaseService getSession() {
         return tlGraphDatabase.get();
+    }
+
+    public static GraphDatabaseService createDatabase(String database){
+        return new GraphDatabaseFactory().newEmbeddedDatabase(database);
     }
 
 
