@@ -7,10 +7,9 @@ import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 public class NeoManager {
     private static ThreadLocal<GraphDatabaseService> tlGraphDatabase = new ThreadLocal<GraphDatabaseService>();
 
-
-    public static <T> T runInSession(NeoOperation<T> operation) {
+    public static <T> T runInSessionInDatabase(NeoOperation<T> operation, String database) {
         if (tlGraphDatabase.get() == null) {
-            tlGraphDatabase.set(new GraphDatabaseFactory().newEmbeddedDatabase("neo_4_j_database"));
+            tlGraphDatabase.set(new GraphDatabaseFactory().newEmbeddedDatabase(database));
         }
         //registerShutdownHook( graphDb );
         T result;
@@ -23,6 +22,11 @@ public class NeoManager {
             throw new RuntimeException(e);
         }
         return result;
+    }
+
+
+    public static <T> T runInSession(NeoOperation<T> operation) {
+        return runInSessionInDatabase(operation, "neo_4_j_database");
     }
 
     public static GraphDatabaseService getSession() {
