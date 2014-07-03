@@ -10,7 +10,6 @@ import ar.edu.unq.persistencia1.services.neo4j.operations.GetFriends;
 import junit.framework.TestCase;
 import neo_integration.operations.ClearDatabase;
 import org.junit.Before;
-import org.neo4j.graphdb.Node;
 
 import java.util.Date;
 import java.util.List;

@@ -18,10 +18,10 @@ public class CreateUserNode implements NeoOperation<Node>{
 
     @Override
     public Node execute() {
-        Node userName = NeoManager.getSession().createNode();
-        userName.setProperty("userName", user.getNombreDeUsuario());
+        Node userNode = NeoManager.getSession().createNode();
+        userNode.setProperty("userName", user.getNombreDeUsuario());
         Index<Node> indexes = NeoManager.getSession().index().forNodes("users");
-        indexes.add(userName, "userName", user.getNombreDeUsuario());
-        return userName;
+        indexes.add(userNode, "userName", user.getNombreDeUsuario());
+        return userNode;
     }
 }
