@@ -9,10 +9,9 @@ public class GetProperty implements NeoOperation<String>{
     @Override
     public String execute() {
         GraphDatabaseService g = NeoManager.getSession();
-        Label label = DynamicLabel.label("User");
 
         ResourceIterator<Node> nodes;
-        nodes = g.findNodesByLabelAndProperty( label, "aProperty", "aValue" ).iterator();
+        nodes = g.index().forNodes("aIndex").query("userName", "aNodeIndex");
         Node node = nodes.next();
 
         return (String) node.getProperty("aProperty");

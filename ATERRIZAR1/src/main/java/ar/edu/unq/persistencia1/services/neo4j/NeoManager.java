@@ -13,13 +13,18 @@ public class NeoManager {
         }
         //registerShutdownHook( graphDb );
         T result;
+        Transaction tx = null;
         try {
-            Transaction tx = tlGraphDatabase.get().beginTx();
+            tx = tlGraphDatabase.get().beginTx();
             result = operation.execute();
             // Database operations go here
             tx.success();
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (tx != null) {
+                tx.close();
+            }
         }
         return result;
     }
@@ -33,8 +38,16 @@ public class NeoManager {
         return tlGraphDatabase.get();
     }
 
-    public static GraphDatabaseService createDatabase(String database){
-        return new GraphDatabaseFactory().newEmbeddedDatabase(database);
+    public static GraphDatabaseService createDatabase(String database) {
+        final GraphDatabaseService grp = new GraphDatabaseFactory().newEmbeddedDatabase(database);
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            @Override
+            public void run() {
+                grp.shutdown();
+            }
+        }));
+
+        return grp;
     }
 
 
