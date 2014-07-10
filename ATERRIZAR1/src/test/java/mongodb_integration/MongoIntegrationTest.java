@@ -17,8 +17,16 @@ public class MongoIntegrationTest extends TestCase{
     private Usuario usuario;
     private Lugar lugar;
 
+    public void setUp(){
+        getDatabase().dropDatabase();
+    }
+
+    public DB getDatabase(){
+        return MongoManager.getDatabase("mongoDataBase");
+    }
+
     public void testMongoInsert(){
-        DB database = MongoManager.getDatabase("mongo_test");
+        DB database = getDatabase();
         DBCollection table = database.getCollection("user");
         BasicDBObject document = new BasicDBObject();
         document.put("name", "mkyong");
@@ -34,9 +42,9 @@ public class MongoIntegrationTest extends TestCase{
         CommentsManager manager = new CommentsManager();
         manager.addDestination(usuario, lugar);
 
-        List<Lugar> lugares =  manager.getDestinations(usuario);
+        List<String> lugares =  manager.getDestinations(usuario);
         assertEquals(1, lugares.size());
-
+        assertEquals("Rio de Janeiro",lugares.get(0));
     }
 
 }
