@@ -16,16 +16,18 @@ import java.util.List;
 
 public class SocialNetworkTest extends TestCase{
 
+    private Usuario usuario;
+    private Usuario friend;
+
     @Before
     public void setUp(){
+        this.usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(), "12", "");
+        this.friend = new Usuario("Santiago", "DeSantiago", "Santy", "Santiagoooooooo", new Date(), "12", "");
         NeoManager.runInSession(new ClearDatabase());
     }
 
     public void testAddFriend(){
         SocialNetworkManager social = new SocialNetworkManager();
-
-        Usuario usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(), "12", "");
-        Usuario friend = new Usuario("Santiago", "DeSantiago", "Santy", "Santiagoooooooo", new Date(), "12", "");
 
         NeoManager.runInSession(new CreateUserNode(usuario));
         NeoManager.runInSession(new CreateUserNode(friend));
