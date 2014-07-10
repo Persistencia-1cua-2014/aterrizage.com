@@ -1,6 +1,4 @@
 package ar.edu.unq.persistencia1.services.neo4j.operations;
-
-
 import ar.edu.unq.persistencia1.Usuario;
 import ar.edu.unq.persistencia1.services.neo4j.NeoManager;
 import ar.edu.unq.persistencia1.services.neo4j.NeoOperation;
