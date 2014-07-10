@@ -7,6 +7,7 @@ import ar.edu.unq.persistencia1.services.neo4j.NeoManager;
 
 import ar.edu.unq.persistencia1.services.neo4j.operations.CreateUserNode;
 import ar.edu.unq.persistencia1.services.neo4j.operations.GetFriends;
+import ar.edu.unq.persistencia1.services.neo4j.operations.GetMessages;
 import junit.framework.TestCase;
 import neo_integration.operations.ClearDatabase;
 import org.junit.Before;
@@ -36,6 +37,20 @@ public class SocialNetworkTest extends TestCase{
 
         List<String> friends = NeoManager.runInSession(new GetFriends(usuario));
         assertEquals(1, friends.size());
+
+    }
+
+
+    public void testSendMessage(){
+        SocialNetworkManager social = new SocialNetworkManager();
+
+        NeoManager.runInSession(new CreateUserNode(usuario));
+        NeoManager.runInSession(new CreateUserNode(friend));
+
+        social.sendMessage(usuario,friend,"Hola mundo");
+
+        List<String> messages = NeoManager.runInSession(new GetMessages(usuario));
+        assertEquals(1,messages.size());
 
     }
 
