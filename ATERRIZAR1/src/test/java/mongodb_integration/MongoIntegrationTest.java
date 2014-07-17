@@ -53,7 +53,7 @@ public class MongoIntegrationTest extends TestCase{
         CommentsManager manager = new CommentsManager();
         manager.addDestination(usuario, lugar);
         manager.setPrivate(usuario, lugar);
-        assertTrue(manager.isPrivate(usuario, lugar));
+        assertTrue(manager.isVisibility(usuario, lugar,"private"));
 
     }
 
@@ -62,7 +62,7 @@ public class MongoIntegrationTest extends TestCase{
         this.lugar = new Lugar("Rio de Janeiro");
         CommentsManager manager = new CommentsManager();
         manager.addDestination(usuario, lugar);
-        assertFalse(manager.isPrivate(usuario, lugar));
+        assertFalse(manager.isVisibility(usuario, lugar,"private"));
 
     }
 

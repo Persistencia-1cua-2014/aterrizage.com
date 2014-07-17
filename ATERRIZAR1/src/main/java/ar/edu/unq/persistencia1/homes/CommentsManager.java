@@ -66,7 +66,7 @@ public class CommentsManager {
     }
 
 
-    public void setPrivate(Usuario user,Lugar destino){
+    public void setVisibility(Usuario user,Lugar destino,String visibility){
         this.getUser(user);
 
         DBCollection table = getDatabase("mongoDataBase").getCollection("destination");
@@ -79,7 +79,7 @@ public class CommentsManager {
 
         BasicDBObject queryUpdate = new BasicDBObject();
 
-        queryUpdate.put("destinos.$.visibility", "private");
+        queryUpdate.put("destinos.$.visibility", visibility);
 
         BasicDBObject updateCommand = new BasicDBObject();
         updateCommand.put("$set", queryUpdate);
@@ -88,7 +88,13 @@ public class CommentsManager {
 
     }
 
-    public boolean isPrivate(Usuario user, Lugar destino){
+
+    public void setPrivate(Usuario user,Lugar destino){
+        this.setVisibility(user,destino,"private");
+
+    }
+
+    public boolean isVisibility(Usuario user, Lugar destino,String visibility){
 
         DBCollection table = getDatabase("mongoDataBase").getCollection("destination");
 
@@ -97,7 +103,7 @@ public class CommentsManager {
         query.put("usuario", user.getNombreDeUsuario());
 
         query.put("destinos.destino", destino.getNombre());
-        query.put("destinos.visibility", "private");
+        query.put("destinos.visibility", visibility);
 
         return table.find(query).length() > 0;
 
