@@ -12,7 +12,7 @@ import static ar.edu.unq.persistencia1.services.mongodb.MongoManager.getDatabase
 public class CommentsManager {
 
 
-    public com.mongodb.DBObject getUser(Usuario user){
+    public com.mongodb.DBObject getUser(Usuario user) {
         DBCollection table = getDatabase("mongoDataBase").getCollection("destination");
 
         BasicDBObject searchQuery = new BasicDBObject();
@@ -20,14 +20,14 @@ public class CommentsManager {
 
         DBCursor cursor = table.find(searchQuery);
 
-       if (cursor.hasNext()) {
+        if (cursor.hasNext()) {
             return (cursor.next());
         }
 
         BasicDBObject usuario = new BasicDBObject();
-        usuario.put("usuario",user.getNombreDeUsuario());
+        usuario.put("usuario", user.getNombreDeUsuario());
         BasicDBList dbl = new BasicDBList();
-        usuario.put("destinos",dbl);
+        usuario.put("destinos", dbl);
         table.insert(usuario);
 
         return usuario;
@@ -35,7 +35,7 @@ public class CommentsManager {
     }
 
 
-    public void addDestination(Usuario user, Lugar lugar){
+    public void addDestination(Usuario user, Lugar lugar) {
 
         DBCollection table = getDatabase("mongoDataBase").getCollection("destination");
 
@@ -46,20 +46,20 @@ public class CommentsManager {
         query.put("visibility", "public");
         DBObject u = this.getUser(user);
 
-        BasicDBList l = (BasicDBList)u.get("destinos");
+        BasicDBList l = (BasicDBList) u.get("destinos");
         l.add(query);
 
         table.save(u);
     }
 
 
-    public List<String> getDestinations(Usuario user){
+    public List<String> getDestinations(Usuario user) {
         DBObject u = this.getUser(user);
-        ArrayList<DBObject> l = (ArrayList<DBObject>)u.get("destinos");
+        ArrayList<DBObject> l = (ArrayList<DBObject>) u.get("destinos");
 
-        List<String> destinations =  new ArrayList<String>();
+        List<String> destinations = new ArrayList<String>();
 
-        for(DBObject o : l){
+        for (DBObject o : l) {
             destinations.add((String) o.get("destino"));
         }
 
@@ -67,7 +67,7 @@ public class CommentsManager {
     }
 
 
-    public void setVisibility(Usuario user,Lugar destino,String visibility){
+    public void setVisibility(Usuario user, Lugar destino, String visibility) {
         this.getUser(user);
 
         DBCollection table = getDatabase("mongoDataBase").getCollection("destination");
@@ -90,22 +90,22 @@ public class CommentsManager {
     }
 
 
-    public void setPrivate(Usuario user,Lugar destino){
-        this.setVisibility(user,destino,"private");
+    public void setPrivate(Usuario user, Lugar destino) {
+        this.setVisibility(user, destino, "private");
 
     }
 
     public void setPubilc(Usuario usuario, Lugar lugar) {
-        this.setVisibility(usuario,lugar,"public");
+        this.setVisibility(usuario, lugar, "public");
     }
 
 
     public void setOnlyFriends(Usuario usuario, Lugar lugar) {
-        this.setVisibility(usuario,lugar,"friends");
+        this.setVisibility(usuario, lugar, "friends");
     }
 
 
-    public boolean isVisibility(Usuario user, Lugar destino,String visibility){
+    public boolean isVisibility(Usuario user, Lugar destino, String visibility) {
 
         DBCollection table = getDatabase("mongoDataBase").getCollection("destination");
 
@@ -120,5 +120,43 @@ public class CommentsManager {
 
     }
 
+
+    public List<String> getUserDestinations(Usuario usuario, Usuario usuario2) {
+
+        SocialNetworkManager socialNetwork = new SocialNetworkManager();
+        if (socialNetwork.areFriends(usuario, usuario2)) {
+            return getFriendlyDestinatios(usuario2);
+        }
+        return getPublicDestinatios(usuario2);
+
+    }
+
+    private List<String> getFriendlyDestinatios(Usuario usuario) {
+        DBObject u = this.getUser(usuario);
+        ArrayList<DBObject> l = (ArrayList<DBObject>) u.get("destinos");
+
+        List<String> destinations = new ArrayList<String>();
+
+        for (DBObject o : l) {
+            if(!o.get("visibility").equals("private"))
+                destinations.add((String) o.get("destino"));
+        }
+
+        return destinations;
+    }
+
+    private List<String> getPublicDestinatios(Usuario usuario) {
+        DBObject u = this.getUser(usuario);
+        ArrayList<DBObject> l = (ArrayList<DBObject>) u.get("destinos");
+
+        List<String> destinations = new ArrayList<String>();
+
+        for (DBObject o : l) {
+            if(o.get("visibility").equals("public"))
+                destinations.add((String) o.get("destino"));
+        }
+
+        return destinations;
+    }
 
 }
