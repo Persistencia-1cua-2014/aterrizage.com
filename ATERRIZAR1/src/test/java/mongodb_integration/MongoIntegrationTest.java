@@ -47,4 +47,23 @@ public class MongoIntegrationTest extends TestCase{
         assertEquals("Rio de Janeiro",lugares.get(0));
     }
 
+    public void testSetDestinationVisibilityAsPrivate(){
+        this.usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(), "12", "");
+        this.lugar = new Lugar("Rio de Janeiro");
+        CommentsManager manager = new CommentsManager();
+        manager.addDestination(usuario, lugar);
+        manager.setPrivate(usuario, lugar);
+        assertTrue(manager.isPrivate(usuario, lugar));
+
+    }
+
+    public void testGetDestinationVisibility(){
+        this.usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(), "12", "");
+        this.lugar = new Lugar("Rio de Janeiro");
+        CommentsManager manager = new CommentsManager();
+        manager.addDestination(usuario, lugar);
+        assertFalse(manager.isPrivate(usuario, lugar));
+
+    }
+
 }

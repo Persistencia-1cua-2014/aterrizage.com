@@ -65,4 +65,41 @@ public class CommentsManager {
         return destinations;
     }
 
+
+    public void setPrivate(Usuario user,Lugar destino){
+        this.getUser(user);
+
+        DBCollection table = getDatabase("mongoDataBase").getCollection("destination");
+
+        BasicDBObject query = new BasicDBObject();
+
+        query.put("usuario", user.getNombreDeUsuario());
+        query.put("destinos.destino", destino.getNombre());
+
+
+        BasicDBObject queryUpdate = new BasicDBObject();
+
+        queryUpdate.put("destinos.$.visibility", "private");
+
+        BasicDBObject updateCommand = new BasicDBObject();
+        updateCommand.put("$set", queryUpdate);
+
+        table.update(query, updateCommand);
+
+    }
+
+    public boolean isPrivate(Usuario user, Lugar destino){
+
+        DBCollection table = getDatabase("mongoDataBase").getCollection("destination");
+
+        BasicDBObject query = new BasicDBObject();
+
+        query.put("usuario", user.getNombreDeUsuario());
+
+        query.put("destinos.destino", destino.getNombre());
+        query.put("destinos.visibility", "private");
+
+        return table.find(query).length() > 0;
+
+    }
 }
