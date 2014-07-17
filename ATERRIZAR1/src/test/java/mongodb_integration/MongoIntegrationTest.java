@@ -57,12 +57,43 @@ public class MongoIntegrationTest extends TestCase{
 
     }
 
+
+    public void testSetDestinationVisibilityAsPublic(){
+        this.usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(), "12", "");
+        this.lugar = new Lugar("Rio de Janeiro");
+        CommentsManager manager = new CommentsManager();
+        manager.addDestination(usuario, lugar);
+        manager.setPubilc(usuario, lugar);
+        assertTrue(manager.isVisibility(usuario, lugar,"public"));
+
+    }
+
+    public void testSetDestinationVisibilityAsOnlyFriends(){
+        this.usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(), "12", "");
+        this.lugar = new Lugar("Rio de Janeiro");
+        CommentsManager manager = new CommentsManager();
+        manager.addDestination(usuario, lugar);
+        manager.setOnlyFriends(usuario, lugar);
+        assertTrue(manager.isVisibility(usuario, lugar,"friends"));
+
+    }
+
     public void testGetDestinationVisibility(){
         this.usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(), "12", "");
         this.lugar = new Lugar("Rio de Janeiro");
         CommentsManager manager = new CommentsManager();
         manager.addDestination(usuario, lugar);
         assertFalse(manager.isVisibility(usuario, lugar,"private"));
+
+    }
+
+
+    public void testSetDestinationPublicDefault(){
+        this.usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(), "12", "");
+        this.lugar = new Lugar("Rio de Janeiro");
+        CommentsManager manager = new CommentsManager();
+        manager.addDestination(usuario, lugar);
+        assertTrue(manager.isVisibility(usuario, lugar,"public"));
 
     }
 

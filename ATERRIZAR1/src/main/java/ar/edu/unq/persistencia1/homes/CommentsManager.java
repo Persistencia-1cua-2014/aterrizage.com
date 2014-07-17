@@ -43,6 +43,7 @@ public class CommentsManager {
 
 
         query.put("destino", lugar.getNombre());
+        query.put("visibility", "public");
         DBObject u = this.getUser(user);
 
         BasicDBList l = (BasicDBList)u.get("destinos");
@@ -94,6 +95,16 @@ public class CommentsManager {
 
     }
 
+    public void setPubilc(Usuario usuario, Lugar lugar) {
+        this.setVisibility(usuario,lugar,"public");
+    }
+
+
+    public void setOnlyFriends(Usuario usuario, Lugar lugar) {
+        this.setVisibility(usuario,lugar,"friends");
+    }
+
+
     public boolean isVisibility(Usuario user, Lugar destino,String visibility){
 
         DBCollection table = getDatabase("mongoDataBase").getCollection("destination");
@@ -108,4 +119,6 @@ public class CommentsManager {
         return table.find(query).length() > 0;
 
     }
+
+
 }
