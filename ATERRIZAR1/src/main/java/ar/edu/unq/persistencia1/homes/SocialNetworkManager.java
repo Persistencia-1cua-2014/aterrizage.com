@@ -3,10 +3,8 @@ package ar.edu.unq.persistencia1.homes;
 
 import ar.edu.unq.persistencia1.Usuario;
 import ar.edu.unq.persistencia1.services.neo4j.NeoManager;
-import ar.edu.unq.persistencia1.services.neo4j.operations.AddFriend;
-import ar.edu.unq.persistencia1.services.neo4j.operations.GetAllFriends;
-import ar.edu.unq.persistencia1.services.neo4j.operations.GetFriends;
-import ar.edu.unq.persistencia1.services.neo4j.operations.SendMessage;
+import ar.edu.unq.persistencia1.services.neo4j.operations.*;
+
 public class SocialNetworkManager {
 
     public void addFriend(Usuario usuario, Usuario newFriend){
@@ -23,6 +21,10 @@ public class SocialNetworkManager {
     
     public void friends(Usuario usuario){
         NeoManager.runInSession((new GetAllFriends(usuario)));
+    }
+
+    public boolean areFriends(Usuario user, Usuario friend){
+        return NeoManager.runInSession((new AreFriends(user, friend)));
     }
     
 }
