@@ -2,17 +2,22 @@ package ar.edu.unq.persistencia1.homes;
 
 import ar.edu.unq.persistencia1.Usuario;
 import ar.edu.unq.persistencia1.enterprise.Lugar;
+
 import com.mongodb.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.print.attribute.standard.Destination;
 
 import static ar.edu.unq.persistencia1.services.mongodb.MongoManager.getDatabase;
 
 public class CommentsManager {
 
 
-    public com.mongodb.DBObject getUser(Usuario user){
+    private Usuario destino;
+
+	public com.mongodb.DBObject getUser(Usuario user){
         DBCollection table = getDatabase("mongoDataBase").getCollection("destination");
 
         BasicDBObject searchQuery = new BasicDBObject();
@@ -104,7 +109,6 @@ public class CommentsManager {
         this.setVisibility(usuario,lugar,"friends");
     }
 
-
     public boolean isVisibility(Usuario user, Lugar destino,String visibility){
 
         DBCollection table = getDatabase("mongoDataBase").getCollection("destination");
@@ -119,6 +123,31 @@ public class CommentsManager {
         return table.find(query).length() > 0;
 
     }
+    
+    public void setComment(Usuario user, Lugar destino, String comentario){
+    		
+        DBCollection table = getDatabase("mongoDataBase").getCollection("destination");
 
+        BasicDBObject query = new BasicDBObject();
+
+        query.put("usuario", user.getNombreDeUsuario());
+        query.put("destinos.destino", destino.getNombre());
+        query.put("comentario", comentario);
+
+        BasicDBObject queryUpdate = new BasicDBObject();
+
+        queryUpdate.put("destinos.$.comentario", comentario);
+
+        BasicDBObject updateCommand = new BasicDBObject();
+        updateCommand.put("$set", queryUpdate);
+
+        table.update(query, updateCommand);
+    }
+
+
+	public String getComment(Usuario usuario, Lugar lugar) {
+		
+		return ;
+	}
 
 }

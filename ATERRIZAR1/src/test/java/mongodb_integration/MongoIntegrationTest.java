@@ -57,7 +57,6 @@ public class MongoIntegrationTest extends TestCase{
 
     }
 
-
     public void testSetDestinationVisibilityAsPublic(){
         this.usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(), "12", "");
         this.lugar = new Lugar("Rio de Janeiro");
@@ -94,6 +93,16 @@ public class MongoIntegrationTest extends TestCase{
         CommentsManager manager = new CommentsManager();
         manager.addDestination(usuario, lugar);
         assertTrue(manager.isVisibility(usuario, lugar,"public"));
+
+    }
+    
+    public void testSetComment(){
+        this.usuario = new Usuario("Lalocura", "DeLalo", "Lalo", "Laloooo", new Date(), "12", "");
+        this.lugar = new Lugar("Rio de Janeiro");
+        CommentsManager manager = new CommentsManager();
+        manager.addDestination(usuario, lugar);
+        manager.setComment(usuario, lugar,"re piola el lugar");
+        assertEquals(manager.getComment(usuario,lugar),"re piola el lugar");
 
     }
 
